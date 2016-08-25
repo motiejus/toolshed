@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     apt-file ruby-dev zsh busybox tree xmlto stl-manual busybox wget \
     python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all \
     awscli ipython-notebook ipython3-notebook cmake python-sphinx \
-    python3-sphinx python-flake8 python3-flake8 rubber man-db
+    python3-sphinx python-flake8 python3-flake8 rubber man-db jq
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
