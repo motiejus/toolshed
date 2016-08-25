@@ -17,6 +17,6 @@ RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/rec
 
 RUN apt-get update && apt-get install -y \
     awscli ipython-notebook ipython3-notebook cmake python-sphinx python3-sphinx \
-    python-flake8 python3-flake8 rubber
+    python-flake8 python3-flake8 rubber man-db
 
 RUN apt-file update
