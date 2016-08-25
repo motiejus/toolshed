@@ -13,4 +13,4 @@ RUN apt-get update && apt-get install -y \
 
 RUN apt-file update
 
-RUN curl -fsSL https://recs.pl > /usr/local/bin/recs && chmod +x recs
+RUN curl -fsSL https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
