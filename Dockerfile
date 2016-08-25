@@ -16,6 +16,6 @@ RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/rec
 # Above should remain ~constant to save bandwidth. There is a lot of stuff.
 
 RUN apt-get update && apt-get install -y \
-    awscli
+    awscli ipython-notebook ipython3-notebook
 
 RUN apt-file update
