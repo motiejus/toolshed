@@ -9,8 +9,13 @@ RUN apt-get update && apt-get install -y \
     htop gdb gdb-doc netcat-openbsd pypy pypy-dev python-dev sloccount cloc pandoc \
     texlive manpages-dev manpages glibc-doc autossh valgrind pastebinit \
     apt-file ruby-dev zsh busybox tree xmlto stl-manual busybox wget \
-    python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all
-
-RUN apt-file update
+    python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all \
 
 RUN curl -fsSL https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
+
+# Above should remain ~constant to save bandwidth. There is a lot of stuff.
+
+RUN apt-get update && apt-get install -y \
+    awscli
+
+RUN apt-file update
