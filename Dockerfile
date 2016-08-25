@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     apt-file ruby-dev zsh busybox tree xmlto stl-manual busybox wget \
     python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all \
 
-RUN curl -fsSL https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
+RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
 # Above should remain ~constant to save bandwidth. There is a lot of stuff.
 
