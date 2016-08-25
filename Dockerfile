@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     htop gdb gdb-doc netcat-openbsd pypy pypy-dev python-dev sloccount cloc pandoc \
     texlive manpages-dev manpages glibc-doc autossh valgrind pastebinit \
     apt-file ruby-dev zsh busybox tree xmlto stl-manual busybox wget \
-    python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all \
+    python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
