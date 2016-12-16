@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     python-pygments ipython nodejs npm tsocks golang pdftk sox libsox-fmt-all \
     awscli ipython-notebook ipython3-notebook cmake python-sphinx \
     python3-sphinx python-flake8 python3-flake8 rubber man-db jq pigz socat \
-    redir zip unzip inetutils-ping mtr sudo autotools-dev
+    redir zip unzip inetutils-ping mtr sudo autotools-dev doxygen debhelper \
+    dh-systemd
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
