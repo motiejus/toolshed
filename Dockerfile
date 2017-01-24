@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     awscli ipython-notebook ipython3-notebook cmake python-sphinx \
     python3-sphinx python-flake8 python3-flake8 rubber man-db jq pigz socat \
     redir zip unzip inetutils-ping mtr sudo autotools-dev doxygen debhelper \
-    dh-systemd
+    dh-systemd cowsay
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
