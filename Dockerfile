@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     iputils-ping strace doxygen debhelper cargo rustc rust-doc pigz supervisor \
     dh-systemd ddd ddd-doc ghc ghc-doc funny-manpages git gcc gcc-doc bsdgames \
     sudo pypy pypy-dev socat rubber zip unzip redir htop mtr golang jq ipython \
-    tree dnsmasq supervisor-doc autotools-dev
+    tree dnsmasq supervisor-doc autotools-dev nginx-extras
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
