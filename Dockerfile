@@ -2,9 +2,9 @@ FROM ubuntu:16.04
 
 MAINTAINER Motiejus Jakštys <desired.mta@gmail.com>
 
-RUN awk -F'# ' '/^deb /{deb=1;next}; deb==1 && /# deb-src/{print $2}; deb=0' \
+RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         /etc/apt/sources.list | \
-        xargs -I{} sed -i 's|# {}|{}|' /etc/apt/sources.list
+        xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
