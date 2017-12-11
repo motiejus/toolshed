@@ -21,7 +21,7 @@ RUN apt-get install -y \
     tree dnsmasq supervisor-doc autotools-dev nginx-extras nftables info bison \
     pdftk cmake python-sphinx screen cowsay bison-doc flex lshw bc pcp gcc-doc \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
-    gdb ddd ddd-doc ghc ghc-doc git gcc pbuilder debian-archive-keyring
+    gdb ddd ddd-doc ghc ghc-doc git gcc pbuilder debian-archive-keyring rkt
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
