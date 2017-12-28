@@ -19,10 +19,10 @@ RUN apt-get install -y \
     iputils-ping strace doxygen debhelper cargo rustc rust-doc pigz supervisor \
     sudo pypy pypy-dev socat rubber zip unzip redir htop mtr golang jq ipython \
     tree dnsmasq supervisor-doc autotools-dev nginx-extras nftables info bison \
-    pdftk cmake python-sphinx screen cowsay bison-doc flex lshw bc pcp gcc-doc \
+    pdftk cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
-    debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc git gcc pbuilder \
-    libsystemd-dev
+    debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
+    bc pbuilder
 
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
