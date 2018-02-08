@@ -1,7 +1,0 @@
-box: motiejus/toolshed
-build:
-  steps:
-    - script:
-        name: find
-        code: |
-          find /
