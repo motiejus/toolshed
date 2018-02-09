@@ -7,7 +7,7 @@ all: .motiejus_toolshed
 	touch $@
 
 push:
-	if [ ! "$(TRAVIS_BRANCH)" = "master" ]; then \
+	@if [ ! "$(TRAVIS_BRANCH)" = "master" ]; then \
 		echo "branch $(TRAVIS_BRANCH) detected, expected master"; \
 		exit; \
 	fi
