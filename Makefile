@@ -11,5 +11,5 @@ push:
 		echo "branch $(TRAVIS_BRANCH) detected, expected master"; \
 		exit; \
 	fi
-	@echo "$(DOCKER_PASS)" | docker login -u "$(DOCKER_USER)" --password-stdin
+	@echo "$(DOCKER_PASS)" | docker login -u motiejus --password-stdin
 	docker push motiejus/toolshed:latest
