@@ -8,7 +8,7 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
 
 RUN apt-get update
 
-RUN apt-get install -y \
+RUN env DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
     awscli bash-completion erlang erlang-doc erlang-manpages python-virtualenv \
     dnsutils lsof parallel debootstrap telnet xinetd graphicsmagick iotop tmux \
@@ -22,7 +22,9 @@ RUN apt-get install -y \
     pdftk cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
-    bc pbuilder psmisc iproute2 openssh-server
+    bc pbuilder psmisc iproute2 openssh-server tzdata
+
+RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
