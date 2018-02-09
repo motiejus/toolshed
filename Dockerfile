@@ -6,9 +6,8 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         /etc/apt/sources.list | \
         xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 
-RUN apt-get update
-
-RUN env DEBIAN_FRONTEND=noninteractive apt-get install -y \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
     awscli bash-completion erlang erlang-doc erlang-manpages python-virtualenv \
     dnsutils lsof parallel debootstrap telnet xinetd graphicsmagick iotop tmux \
@@ -25,7 +24,7 @@ RUN env DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bc pbuilder psmisc iproute2 openssh-server tzdata
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
-        dpkg-reconfigure --frontend noninteractive tzdata
+        dpkg-reconfigure tzdata
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
