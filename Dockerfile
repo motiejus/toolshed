@@ -24,7 +24,8 @@ RUN env DEBIAN_FRONTEND=noninteractive apt-get install -y \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
     bc pbuilder psmisc iproute2 openssh-server tzdata
 
-RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime
+RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
+        dpkg-reconfigure --frontend noninteractive tzdata
 
 RUN curl -L https://recs.pl > /usr/local/bin/recs && chmod +x /usr/local/bin/recs
 
