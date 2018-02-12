@@ -2,12 +2,17 @@ FROM ubuntu:18.04
 
 MAINTAINER Motiejus Jakštys <desired.mta@gmail.com>
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         /etc/apt/sources.list | \
-        xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
+        xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list && \
+    rm /etc/dpkg/dpkg.cfg.d/excludes && \
+    apt-get update
 
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install --install-recommends -y \
+# need manpages and docs
+RUN apt-get install --reinstall $(dpkg -l | awk '/^ii/{ print $2 }')
+
+RUN apt-get install --install-recommends -y \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
     awscli bash-completion erlang erlang-doc erlang-manpages python-virtualenv \
     dnsutils lsof parallel debootstrap telnet xinetd graphicsmagick iotop tmux \
