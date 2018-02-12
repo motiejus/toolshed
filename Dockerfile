@@ -7,7 +7,7 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --install-recommends -y \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
     awscli bash-completion erlang erlang-doc erlang-manpages python-virtualenv \
     dnsutils lsof parallel debootstrap telnet xinetd graphicsmagick iotop tmux \
@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
     pdftk cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
-    bc pbuilder psmisc iproute2 openssh-server tzdata binutils-doc
+    bc pbuilder psmisc iproute2 openssh-server tzdata binutils-doc rsyslog-doc
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
         dpkg-reconfigure tzdata
