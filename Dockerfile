@@ -10,9 +10,9 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
     apt-get update
 
 # need manpages and docs
-RUN apt-get install --reinstall $(dpkg -l | awk '/^ii/{ print $2 }')
+RUN apt-get install -y --reinstall $(dpkg -l | awk '/^ii/{ print $2 }')
 
-RUN apt-get install --install-recommends -y \
+RUN apt-get install -y --install-recommends \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
     awscli bash-completion erlang erlang-doc erlang-manpages python-virtualenv \
     dnsutils lsof parallel debootstrap telnet xinetd graphicsmagick iotop tmux \
