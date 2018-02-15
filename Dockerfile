@@ -5,12 +5,9 @@ MAINTAINER Motiejus Jakštys <desired.mta@gmail.com>
 ENV DEBIAN_FRONTEND=noninteractive
 RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         /etc/apt/sources.list | \
-        xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list && \
-    rm /etc/dpkg/dpkg.cfg.d/excludes && \
-    apt-get update
+        xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 
-# need manpages and docs
-RUN apt-get install -y --reinstall $(dpkg -l | awk '/^ii/{ print $2 }')
+RUN yes | unminimize
 
 RUN apt-get install -y --install-recommends \
     python3 python python-doc python3-doc mc curl build-essential cloc git-svn \
