@@ -24,7 +24,7 @@ RUN apt-get install -y --install-recommends \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
     parted pbuilder psmisc iproute2 openssh-server tzdata binutils-doc doc-rfc \
     cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc grub2 \
-    bc
+    bc rsync pv
 
 # TODO: add pdftk
 
