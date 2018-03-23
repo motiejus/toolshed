@@ -20,11 +20,12 @@ RUN apt-get install -y --install-recommends \
     iputils-ping strace doxygen debhelper cargo rustc rust-doc pigz supervisor \
     sudo pypy pypy-dev socat rubber zip unzip redir htop mtr golang jq ipython \
     tree dnsmasq supervisor-doc autotools-dev nginx-extras nftables info bison \
-    pdftk cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
     parted pbuilder psmisc iproute2 openssh-server tzdata binutils-doc doc-rfc \
-    bc
+    cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc bc
+
+# TODO: add bionic
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
         dpkg-reconfigure tzdata
