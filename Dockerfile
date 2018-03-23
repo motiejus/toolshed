@@ -23,7 +23,8 @@ RUN apt-get install -y --install-recommends \
     pdftk cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
-    bc pbuilder psmisc iproute2 openssh-server tzdata binutils-doc doc-rfc
+    parted pbuilder psmisc iproute2 openssh-server tzdata binutils-doc doc-rfc \
+    bc
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
         dpkg-reconfigure tzdata
