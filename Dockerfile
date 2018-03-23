@@ -23,9 +23,10 @@ RUN apt-get install -y --install-recommends \
     gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames \
     debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev \
     parted pbuilder psmisc iproute2 openssh-server tzdata binutils-doc doc-rfc \
-    cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc bc
+    cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc grub2 \
+    bc
 
-# TODO: add bionic
+# TODO: add pdftk
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
         dpkg-reconfigure tzdata
