@@ -31,7 +31,7 @@ toolshed.img: .tmp/.faux_container
 		toolshed_builder /x/image/create
 
 start: toolshed.img
-	image/start 
+	image/start $(PWD)
 	@echo "See boot.log for boot status"
 	@echo "Use \"ssh -p 5555 ubuntu@localhost\" (passwd: ubuntu) to reach it"
 
@@ -39,7 +39,7 @@ stop:
 	kill $(shell cat qemu.pid)
 	rm qemu.pid
 
-test: toolshed.img
+test:
 	docker run -ti --rm \
 		--name toolshed_tester \
 		-v `pwd`:/x \

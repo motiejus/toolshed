@@ -1,1 +1,5 @@
 /.motiejus_toolshed
+/.tmp/
+/toolshed.img
+/boot.log
+/qemu.pid

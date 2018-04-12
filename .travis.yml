@@ -1,7 +1,16 @@
 sudo: required
 services: docker
-script: make
-after_success: make push
+addons:
+  apt:
+    packages:
+      - shellcheck
+
+script:
+  - eval $RUN
+
 env:
+  matrix:
+    - RUN="make container push"
+    - RUN="make lint img test"
   global:
   - secure: gMtBB8pWUdkrss/NqGKAaO3H11FhwA7V0J5LoddNhMMCixyr8uiQJsepIxSV3Z2xffCWn5MxiW0upb7gpkZKyuTOscXw6x3TEcpTZz6JUjyGcfOLBcPKUS5ufD0ZPH0J4PkKSw+qdy3jXXiMSskPL6FZX5aDBuT9Yp/AxhZQ0OwjiRw08wd741n42SH8Wja5uca1n2Mp385McH154XtQCaUM6/P+Q4eFrR7GFmCVsu92uoTELQoRUh/RLKQJYS4NgyIaMQs4w/2KbQyfKxWbHomy59tFoE7jXlnbXw4jS8zvphC4/dH5+Rn1jqvkEhJThLUYvzcosVsq+8mhw4iv/R27yNiARpl9iSM/K9fpc5ZDPNwoil1Io7iaUkVdGp+93kPCRJEdpkULDW7JzIaTcod+bM0LwG4MZPv9+tGmyhjOMr3BU7PkOPoOqIiUYE59fAZP7zaQZ2agTz5YXLWI3nv6CwQaHwvr8lDhT4qw/kkPygUlNKEjhh4YKASEquQ505e1EXZppWP15iZqmCbgkL5Wf+7V8Vis4XyPBOA3K3C6Rh1PBT2v4iKiYhR8l8sCCnGiLOdJ5V+9qgUTiBWqE7176BdqfU25kVHGhUKrxUsJnw9ZX1xRBqi7YDyoguEPJVt97rlFWReNjwwUT5EI9LQ9c+DQrsWN1kCOG65fdB8=
