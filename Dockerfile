@@ -16,7 +16,7 @@ RUN apt-get install -y --install-recommends \
     pandoc texlive manpages-dev manpages glibc-doc autossh valgrind pastebinit \
     cppreference-doc-en-html apt-file ruby-dev nmap busybox xmlto wget mlocate \
     python-pygments nodejs npm tsocks sox libsox-fmt-all lua5.2 lua5.2-doc vim \
-    python3-sphinx python-flake8 python3-flake8 man-db zsh clang clang-3.8-doc \
+    python3-sphinx python-flake8 python3-flake8 man-db zsh clang clang-6.0-doc \
     iputils-ping strace doxygen debhelper cargo rustc rust-doc pigz supervisor \
     sudo pypy pypy-dev socat rubber zip unzip redir htop mtr golang jq ipython \
     tree dnsmasq supervisor-doc autotools-dev nginx-extras nftables info bison \
