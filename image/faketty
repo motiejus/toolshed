@@ -1,0 +1,10 @@
+#!/bin/bash
+set -xeuo pipefail
+
+if [[ $(uname -s) == "Darwin" ]]; then
+    function faketty { script -q /dev/null "$@"; }
+else # Linux
+    function faketty { script -qfc "$(printf "%q " "$@")"; }
+fi
+
+faketty "$@"
