@@ -23,7 +23,7 @@ main() {
       ssh -o StrictHostKeyChecking=no \
           -i /root/.ssh/id_rsa \
           -p5555 \
-          ubuntu@localhost true || RET=$?
+          motiejus@localhost true || RET=$?
       if [[ $RET == 0 ]]; then
           echo "ssh succeeded"
           break

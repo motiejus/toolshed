@@ -23,17 +23,20 @@ push:
 
 img: toolshed.img
 
+PASSWD ?= ubuntu
+
 toolshed.img: .tmp/.faux_container
 	docker run -ti --rm --privileged \
 		--name toolshed_builder \
 		--env IMG_DST=/x/$@ \
+		--env PASSWD=$(PASSWD) \
 		-v `pwd`:/x \
 		toolshed_builder /x/image/create
 
 start: toolshed.img
 	image/start $(PWD)
 	@echo "See boot.log for boot status"
-	@echo "Use \"ssh -p 5555 ubuntu@localhost\" (passwd: ubuntu) to reach it"
+	@echo "Use \"ssh -p 5555 motiejus@localhost\" (passwd: $(PASSWD)) to reach it"
 
 stop:
 	kill $(shell cat qemu.pid)
