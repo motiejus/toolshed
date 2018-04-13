@@ -12,26 +12,30 @@ push:
 		echo "branch $(TRAVIS_BRANCH) detected, expected master"; \
 	else \
 		echo "$(DOCKER_PASS)" | docker login -u motiejus --password-stdin; \
-		docker push motiejus/toolshed:latest; \
+		docker push $(IMAGE):latest; \
 	fi
 
 .motiejus_toolshed: Dockerfile
 	docker build -t motiejus/toolshed .
 	touch $@
 
-.PHONY: img start stop test
+.PHONY: img start stop test compress
 
 img: toolshed.img
 
 PASSWD ?= ubuntu
-
-toolshed.img: .tmp/.faux_container
+toolshed.img: .tmp/.faux_builder
 	docker run -ti --rm --privileged \
 		--name toolshed_builder \
 		--env IMG_DST=/x/$@ \
 		--env PASSWD=$(PASSWD) \
 		-v `pwd`:/x \
 		toolshed_builder /x/image/create
+
+deploy: .tmp/.faux_deploy
+
+toolshed.img.xz: toolshed.img
+	xz -vk $<
 
 start: toolshed.img
 	image/start $(PWD)
@@ -49,6 +53,10 @@ test:
 		toolshed_builder \
 		/x/image/test /x/
 
-.tmp/.faux_container: image/Dockerfile
-	docker build -t toolshed_builder image
+.tmp/.faux_builder: image/Dockerfile.build
+	docker build -t motiejus/toolshed_builder -f image/Dockerfile.build image
+	mkdir -p $(dir $@) && touch $@
+
+.tmp/.faux_deploy: toolshed.img.xz image/Dockerfile.deploy
+	docker build -t motiejus/toolshed_disk -f image/Dockerfile.deploy .
 	mkdir -p $(dir $@) && touch $@

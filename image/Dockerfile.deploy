@@ -1,0 +1,6 @@
+FROM motiejus/toolshed_builder
+
+COPY toolshed.img.xz /
+
+WORKDIR /
+CMD ["/bin/bash"]
