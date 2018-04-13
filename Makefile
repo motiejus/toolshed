@@ -30,7 +30,7 @@ toolshed.img: .tmp/.faux_builder
 		--env IMG_DST=/x/$@ \
 		--env PASSWD=$(PASSWD) \
 		-v `pwd`:/x \
-		toolshed_builder /x/image/create
+		motiejus/toolshed_builder /x/image/create
 
 deploy: .tmp/.faux_deploy
 
@@ -50,7 +50,7 @@ test:
 	docker run -ti --rm \
 		--name toolshed_tester \
 		-v `pwd`:/x \
-		toolshed_builder \
+		motiejus/toolshed_builder \
 		/x/image/test /x/
 
 .tmp/.faux_builder: image/Dockerfile.build
