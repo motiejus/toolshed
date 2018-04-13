@@ -14,9 +14,9 @@ post_setup() {
     echo "motiejus:$PASSWD" | chroot /target chpasswd
 
     mkdir -p /target/home/motiejus/.ssh
-    { 
+    {
         cat /root/.ssh/id_rsa.pub
-        curl https://github.com/motiejus.keys 
+        curl -v https://github.com/motiejus.keys 
     } > /target/home/motiejus/.ssh/authorized_keys
 
     chroot /target chown -R motiejus:motiejus /home/motiejus/.ssh
