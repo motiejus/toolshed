@@ -34,8 +34,10 @@ toolshed.img: .tmp/.faux_builder
 
 deploy: .tmp/.faux_deploy
 
+WAIT = $(shell which travis_wait >/dev/null && echo travis_wait 60 || echo env)
+
 toolshed.img.xz: toolshed.img
-	xz -vk $<
+	$(WAIT) xz -vk $<
 
 start: toolshed.img
 	image/start $(PWD)
