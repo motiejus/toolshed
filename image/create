@@ -8,7 +8,7 @@ set -x
 # and the relevant directories are still mounted (/dev, /sys, etc)
 post_setup() {
     chroot /target env DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        openssh-server sudo less
+        openssh-server sudo less curl
     chroot /target useradd -s /bin/bash -m -G sudo motiejus
     echo '%sudo  ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/sudoers
     echo "motiejus:$PASSWD" | chroot /target chpasswd
@@ -16,7 +16,7 @@ post_setup() {
     mkdir -p /target/home/motiejus/.ssh
     {
         cat /root/.ssh/id_rsa.pub
-        wget -O- https://github.com/motiejus.keys
+        chroot /target curl -v https://github.com/motiejus.keys
     } > /target/home/motiejus/.ssh/authorized_keys
 
     chroot /target chown -R motiejus:motiejus /home/motiejus/.ssh
