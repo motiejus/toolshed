@@ -35,6 +35,9 @@ toolshed.img: .tmp/.faux_builder
 
 deploy: .tmp/.faux_deploy
 
+toolshed.img.xz: toolshed.img
+	pv -f $< | xz -9 > $@
+
 start: toolshed.img
 	image/start $(PWD)
 	@echo "See boot.log for boot status"
@@ -55,6 +58,6 @@ test:
 	docker build -t motiejus/toolshed_builder -f image/Dockerfile.build image
 	mkdir -p $(dir $@) && touch $@
 
-.tmp/.faux_deploy: toolshed.img image/Dockerfile.deploy
+.tmp/.faux_deploy: toolshed.img.xz image/Dockerfile.deploy
 	docker build -t motiejus/toolshed_disk -f image/Dockerfile.deploy .
 	mkdir -p $(dir $@) && touch $@

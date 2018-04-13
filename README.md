@@ -3,3 +3,7 @@
 
 # Toolshed
 Docker container with Motiejus adhoc tools. Downloadable via [motiejus/toolshed](https://hub.docker.com/r/motiejus/toolshed/).
+
+xz -0: 570 MB
+xz -6: 515 MB
+no xz: 662 MB

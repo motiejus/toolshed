@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-      parted debootstrap openssh-client make curl
+      parted debootstrap openssh-client make xz-utils curl
 
-COPY toolshed.img /
+COPY toolshed.img.xz /
 
 CMD ["/bin/bash"]
