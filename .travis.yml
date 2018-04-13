@@ -4,6 +4,7 @@ addons:
   apt:
     packages:
       - shellcheck
+      - pv
 
 script:
   - eval $RUN

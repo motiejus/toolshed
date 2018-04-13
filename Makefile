@@ -35,7 +35,7 @@ toolshed.img: .tmp/.faux_builder
 deploy: .tmp/.faux_deploy
 
 toolshed.img.xz: toolshed.img
-	image/faketty xz -vk $<
+	pv -f $< | xz -0 > $@
 
 start: toolshed.img
 	image/start $(PWD)
