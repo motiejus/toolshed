@@ -1,6 +1,9 @@
-FROM motiejus/toolshed_builder
+FROM ubuntu:18.04
 
-COPY toolshed.img.xz /
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      parted debootstrap openssh-client make xz-utils curl
 
-WORKDIR /
+COPY toolshed.img /
+RUN xz -v /toolshed.img
+
 CMD ["/bin/bash"]
