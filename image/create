@@ -2,16 +2,17 @@
 set -euo pipefail
 set -x
 
-: "${PASSWD:?Expected PASSWD}"
+readonly passwd=${PASSWD:?Expected PASSWD}
+readonly packages=${PACKAGES:-}
 
 # post_setup is called when the system is fully setup
 # and the relevant directories are still mounted (/dev, /sys, etc)
 post_setup() {
     chroot /target env DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        openssh-server sudo less curl
-    chroot /target useradd -s /bin/bash -m -G sudo motiejus
+        openssh-server sudo less curl docker.io
+    chroot /target useradd -s /bin/bash -m -G sudo,docker motiejus
     echo '%sudo  ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/sudoers
-    echo "motiejus:$PASSWD" | chroot /target chpasswd
+    echo "motiejus:$passwd" | chroot /target chpasswd
 
     mkdir -p /target/home/motiejus/.ssh
     {
@@ -20,6 +21,12 @@ post_setup() {
     } > /target/home/motiejus/.ssh/authorized_keys
 
     chroot /target chown -R motiejus:motiejus /home/motiejus/.ssh
+
+    IFS=, read -ra pkgs <<< "$packages"
+    chroot /target env DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        "${pkgs[@]}"
+
+    chroot /target systemctl set-default multi-user.target
 }
 
 # pre_umount is called just before /target is unmounted
@@ -48,7 +55,7 @@ debug() {
 }
 
 create() {
-    rm -f /z && truncate -s3G /z
+    rm -f /z && truncate -s20G /z
     parted -a optimal /z mklabel msdos
     parted -a optimal /z unit mib mkpart primary ext2 1 100%
     parted -a optimal /z set 1 boot on
@@ -62,7 +69,7 @@ create() {
 }
 
 bootstrap() {
-    debootstrap --components=main,universe bionic /target http://ftp.litnet.lt/ubuntu/
+    debootstrap --components=main,universe,multiverse bionic /target http://ftp.litnet.lt/ubuntu/
 }
 
 setup_os() {
@@ -104,7 +111,7 @@ setup_os() {
 
     pre_umount
     umount /target/sys
-    umount /target/proc
+    umount -R /target/proc # has /target/proc/sys/fs/binfmt_misc
     umount /target/dev
     umount /target/dev/shm
     umount /target/dev/pts

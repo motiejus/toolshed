@@ -1,0 +1,18 @@
+python3 python python-doc python3-doc mc curl build-essential cloc git-svn
+awscli bash-completion erlang erlang-doc erlang-manpages python-virtualenv
+dnsutils lsof parallel debootstrap telnet xinetd graphicsmagick iotop tmux
+pandoc texlive manpages-dev manpages glibc-doc autossh valgrind pastebinit
+cppreference-doc-en-html apt-file ruby-dev nmap busybox xmlto wget mlocate
+python-pygments nodejs npm tsocks sox libsox-fmt-all lua5.2 lua5.2-doc vim
+python3-sphinx python-flake8 python3-flake8 man-db zsh clang clang-6.0-doc
+iputils-ping strace doxygen debhelper cargo rustc rust-doc pigz supervisor
+sudo pypy pypy-dev socat rubber zip unzip redir htop mtr golang jq ipython
+tree dnsmasq supervisor-doc autotools-dev nginx-extras nftables info bison
+gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames
+debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev
+parted pbuilder psmisc iproute2 openssh-server tzdata binutils-doc doc-rfc
+cmake python-sphinx screen cowsay bison-doc flex pcp git gcc gcc-doc grub2
+bc rsync pv python-all python-pip gdebi aptitude elinks python3-matplotlib
+mencoder kpartx sqlite units iodine graphviz fakechroot fakeroot
+
+# TODO: add pdftk
