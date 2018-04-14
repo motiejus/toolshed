@@ -1,7 +1,8 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-      parted debootstrap openssh-client make xz-utils curl
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+        openssh-client make xz-utils wget
 
 COPY toolshed.img.xz /
 

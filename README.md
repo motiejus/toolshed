@@ -6,4 +6,5 @@ Docker container with Motiejus adhoc tools. Downloadable via [motiejus/toolshed]
 
 xz -0: 570 MB
 xz -6: 515 MB
+xz -9: 509 MB
 no xz: 662 MB
