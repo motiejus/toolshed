@@ -37,7 +37,7 @@ main() {
 
     ls -lh /z
     if [[ -n "${IMG_DST:-}" ]]; then
-        cp /z "${IMG_DST}"
+        pv -f /z | xz -9 > "${IMG_DST}"
     fi
 }
 
@@ -114,12 +114,12 @@ setup_os() {
 shrink() {
     e2fsck -f /dev/loop0p1
 
-    # giving ~64MB free for a successful initial boot if disk is not resized
+    # giving ~256MB free for a successful initial boot if disk is not resized
     meg=1048576
     block_size=$(tune2fs -l /dev/loop0p1 | awk '/Block size/{print $3}')
     minimal_size=$(resize2fs -P /dev/loop0p1 | awk '/Estimated/{print $NF}')
     minimal_size_b=$(echo "$minimal_size*$block_size" | bc)
-    increased_size_megs=$(echo "$minimal_size_b/$meg+64" | bc)
+    increased_size_megs=$(echo "$minimal_size_b/$meg+256" | bc)
     resize2fs /dev/loop0p1 "${increased_size_megs}M"
 
     p=$(parted --machine /dev/loop0 unit s print)

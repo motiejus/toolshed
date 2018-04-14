@@ -22,10 +22,10 @@ push:
 
 .PHONY: img start stop test compress
 
-img: toolshed.img
+img: toolshed.img.xz
 
 PASSWD ?= ubuntu
-toolshed.img: .tmp/.faux_builder
+toolshed.img.xz: .tmp/.faux_builder
 	docker run -ti --rm --privileged \
 		--name toolshed_builder \
 		--env IMG_DST=/x/$@ \
@@ -35,10 +35,7 @@ toolshed.img: .tmp/.faux_builder
 
 deploy: .tmp/.faux_deploy
 
-toolshed.img.xz: toolshed.img
-	pv -f $< | xz -9 > $@
-
-start: toolshed.img
+start: toolshed.img.xz
 	image/start $(PWD)
 	@echo "See boot.log for boot status"
 	@echo "Use \"ssh -p 5555 motiejus@localhost\" (passwd: $(PASSWD)) to reach it"
