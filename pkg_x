@@ -1,5 +1,6 @@
-lxde lxterminal ssvnc firefox firefox-locale-lt chromium-browser
-chromium-codecs-ffmpeg-extra filezilla rox-filer evince vim-gtk wireshark
-leafpad libreoffice openjdk-11-jdk docker.io android-sdk-platform-tools
+lxde lxterminal ssvnc firefox firefox-locale-lt filezilla rox-filer evince
+vim-gtk wireshark leafpad docker.io android-sdk-platform-tools
 
 vlc mplayer audacity mpd ncmpc mpc sonata mirage gpicview gimp
+
+# TODO add libreoffice
