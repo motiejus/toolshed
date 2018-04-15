@@ -44,7 +44,7 @@ main() {
 
     ls -lh /z
     if [[ -n "${IMG_DST:-}" ]]; then
-        pv -n --timer --bytes | xz -0c > "${IMG_DST}"
+        pv -n --timer --bytes /z | xz -0c > "${IMG_DST}"
     fi
 }
 
