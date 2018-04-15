@@ -10,7 +10,9 @@ Docker container with lots of tools. Builds two containers:
   just a docker image.
 * [motiejus/toolshed_disk](https://hub.docker.com/r/motiejus/toolshed_disk/).
   This image has `/toolshed.img.xz`, which can be written to a USB stick.
-  Contains everything in `motiejus/toolshed`, and more.
+  Currently quite empty, because travis-ci enforces a 50min limit on image
+  builds which is problematic for xz, and ~20GB-ish of space, which is
+  problematic without xz.
 
 ## Security considerations
 
