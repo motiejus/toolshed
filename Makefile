@@ -39,16 +39,19 @@ toolshed.img.xz: .tmp/.faux_builder
 
 deploy: .tmp/.faux_deploy
 
-start: toolshed.img.xz
+start: toolshed.img
 	image/start $(PWD)
 	@echo "See boot.log for boot status"
 	@echo "Use \"ssh -p 5555 motiejus@localhost\" (passwd: $(PASSWD)) to reach it"
+
+toolshed.img: toolshed.img.xz
+	xz -dvk $<
 
 stop:
 	kill $(shell cat qemu.pid)
 	rm qemu.pid
 
-test:
+test: toolshed.img
 	docker run -ti --rm \
 		--name toolshed_tester \
 		-v `pwd`:/x \
