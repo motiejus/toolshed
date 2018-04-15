@@ -44,7 +44,7 @@ main() {
 
     ls -lh /z
     if [[ -n "${IMG_DST:-}" ]]; then
-        pv -f /z | xz -9 > "${IMG_DST}"
+        xz -cv /z > "${IMG_DST}"
     fi
 }
 
