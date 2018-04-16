@@ -8,7 +8,7 @@ addons:
       - pv
 
 script:
-  - eval $RUN 2>&1 | ts '[%H:%M:%S]'
+  - bash -eo pipefail -c "$RUN | ts '[%H:%M:%S]'"
 
 env:
   matrix:
