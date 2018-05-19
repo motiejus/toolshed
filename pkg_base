@@ -12,6 +12,6 @@ python-dev sloccount stl-manual dh-systemd bsdgames debian-archive-keyring gdb
 ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev parted pbuilder psmisc iproute2
 openssh-server tzdata binutils-doc doc-rfc cmake screen cowsay flex git gcc
 gcc-doc grub2 bc rsync pv python-pip gdebi aptitude elinks python3-matplotlib
-mencoder kpartx sqlite units iodine graphviz fakechroot fakeroot
+mencoder kpartx sqlite units iodine graphviz fakechroot fakeroot nginx-doc
 
 # TODO: add pdftk
