@@ -16,8 +16,9 @@ push:
 		docker push $(IMAGE):latest; \
 	fi
 
-pkg_base = $(shell grep -hv ^\# pkg_base | tr -s '[:space:]' ,)
-pkg_all = $(shell grep -hv ^\# pkg_base pkg_x | tr -s '[:space:]' ,)
+pkg_minimal = $(shell grep -hv ^\# pkg_minimal | tr -s '[:space:]' ,)
+pkg_base = $(shell grep -hv ^\# pkg_minimal pkg_base | tr -s '[:space:]' ,)
+pkg_all = $(shell grep -hv ^\# pkg_minimal pkg_base pkg_x | tr -s '[:space:]' ,)
 
 .motiejus_toolshed: Dockerfile
 	docker build -t motiejus/toolshed --build-arg packages=$(pkg_base) .
@@ -33,7 +34,7 @@ toolshed.img.xz: .tmp/.faux_builder
 		--name toolshed_builder \
 		--env IMG_DST=/x/$@ \
 		--env PASSWD=$(PASSWD) \
-		--env PACKAGES=$(pkg_base) \
+		--env PACKAGES=$(pkg_minimal) \
 		-v `pwd`:/x \
 		motiejus/toolshed_builder /x/image/create
 

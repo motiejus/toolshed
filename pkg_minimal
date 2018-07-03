@@ -1,0 +1,3 @@
+lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate tsocks vim
+man-db strace sudo  socat redir htop jq tree dnsmasq lshw iproute2
+openssh-server tzdata git bc rsync pv elinks kpartx iodine fakechroot fakeroot

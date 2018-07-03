@@ -1,17 +1,15 @@
 python3-all python-all python-doc python3-doc mc curl build-essential cloc
 git-svn awscli bash-completion erlang erlang-doc erlang-manpages
-python-virtualenv dnsutils lsof parallel debootstrap telnet xinetd
-graphicsmagick iotop tmux pandoc texlive manpages-dev manpages glibc-doc
-autossh valgrind pastebinit cppreference-doc-en-html apt-file ruby-dev nmap
-busybox xmlto wget mlocate python-pygments nodejs tsocks sox libsox-fmt-all
-lua5.2 lua5.2-doc vim python3-sphinx python3-flake8 man-db zsh clang
-clang-6.0-doc iputils-ping strace doxygen debhelper cargo pigz supervisor sudo
-pypy pypy-dev socat rubber zip unzip redir htop mtr golang jq ipython tree
-dnsmasq autotools-dev nginx-extras nftables info gdb-doc netcat-openbsd
-python-dev sloccount stl-manual dh-systemd bsdgames debian-archive-keyring gdb
-ddd ddd-doc rkt ghc-doc ghc lshw libsystemd-dev parted pbuilder psmisc iproute2
-openssh-server tzdata binutils-doc doc-rfc cmake screen cowsay flex git gcc
-gcc-doc grub2 bc rsync pv python-pip gdebi aptitude elinks python3-matplotlib
-mencoder kpartx sqlite units iodine graphviz fakechroot fakeroot nginx-doc
+python-virtualenv dnsutils telnet xinetd graphicsmagick iotop pandoc texlive
+manpages-dev manpages glibc-doc autossh valgrind pastebinit
+cppreference-doc-en-html ruby-dev xmlto python-pygments nodejs sox
+libsox-fmt-all lua5.2 lua5.2-doc python3-sphinx python3-flake8 zsh clang
+clang-6.0-doc iputils-ping doxygen debhelper cargo pigz supervisor pypy
+pypy-dev rubber zip unzip redir mtr golang ipython autotools-dev nftables info
+gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd bsdgames
+debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc libsystemd-dev parted
+pbuilder psmisc binutils-doc doc-rfc cmake screen cowsay flex gcc gcc-doc grub2
+python-pip gdebi aptitude python3-matplotlib mencoder sqlite units graphviz
+nginx-doc nginx-extras
 
 # TODO: add pdftk
