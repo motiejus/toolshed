@@ -45,7 +45,7 @@ start: toolshed.img
 	@echo "Use \"ssh -p 5555 motiejus@localhost\" (passwd: $(PASSWD)) to reach it"
 
 toolshed.img: toolshed.img.xz
-	xz -dvk $<
+	pv -f $< | xz -9 > $@
 
 stop:
 	kill $(shell cat qemu.pid)
