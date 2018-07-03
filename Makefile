@@ -34,7 +34,7 @@ toolshed.img.xz: .tmp/.faux_builder
 		--name toolshed_builder \
 		--env IMG_DST=/x/$@ \
 		--env PASSWD=$(PASSWD) \
-		--env PACKAGES=$(pkg_minimal) \
+		--env PACKAGES=$(pkg_base) \
 		-v `pwd`:/x \
 		motiejus/toolshed_builder /x/image/create
 
