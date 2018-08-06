@@ -1,5 +1,13 @@
 FROM ubuntu:18.04
 
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+        openssh-client busybox xz-utils wget
+
+COPY toolshed.img.xz /
+
+CMD ["/bin/bash"]
+
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="toolshed_disk" \
       org.label-schema.description="bootable disk image with stuff" \
@@ -8,11 +16,3 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/motiejus/toolshed" \
       org.label-schema.vendor="motiejus" \
       org.label-schema.schema-version="1.0"
-
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y --no-install-recommends \
-        openssh-client busybox xz-utils wget
-
-COPY toolshed.img.xz /
-
-CMD ["/bin/bash"]
