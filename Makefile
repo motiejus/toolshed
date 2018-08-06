@@ -21,7 +21,11 @@ pkg_nox = $(shell grep -hv ^\# pkg_base pkg_nox | tr -s '[:space:]' ,)
 pkg_x = $(shell grep -hv ^\# pkg_base pkg_nox pkg_x | tr -s '[:space:]' ,)
 
 .motiejus_toolshed: Dockerfile
-	docker build -t motiejus/toolshed --build-arg packages=$(pkg_nox) .
+	docker build -t motiejus/toolshed \
+		--build-arg packages=$(pkg_nox) \
+		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		.
 	touch $@
 
 .PHONY: img start stop test compress
@@ -64,5 +68,9 @@ test: toolshed.img
 	mkdir -p $(dir $@) && touch $@
 
 .tmp/.faux_deploy: toolshed.img.xz image/Dockerfile.deploy
-	docker build -t motiejus/toolshed_disk -f image/Dockerfile.deploy .
+	docker build -t motiejus/toolshed_disk \
+		-f image/Dockerfile.deploy \
+		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg VCS_REF=`git rev-parse --short HEAD` \
+		.
 	mkdir -p $(dir $@) && touch $@
