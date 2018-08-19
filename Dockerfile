@@ -9,6 +9,16 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
 RUN yes | env DEBIAN_FRONTEND=noninteractive unminimize
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
                     $(echo "$PACKAGES" | tr , ' ')
+
+ENV PATH="$HOME/.cargo/bin:$PATH"
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
+        rustup toolchain install nightly && \
+        rustup target add x86_64-unknown-linux-musl && \
+        rustup target add armv7-unknown-linux-gnueabihf && \
+        apt-get install -y gcc-7-arm-linux-gnueabihf && \
+        echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
+        echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
+
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure tzdata && \
     apt-file update && updatedb
