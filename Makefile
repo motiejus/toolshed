@@ -16,19 +16,17 @@ push:
 		docker push $(IMAGE):latest; \
 	fi
 
-pkg_base = $(shell grep -hv ^\# pkg_base | tr -s '[:space:]' ,)
-pkg_nox = $(shell grep -hv ^\# pkg_base pkg_nox | tr -s '[:space:]' ,)
-pkg_x = $(shell grep -hv ^\# pkg_base pkg_nox pkg_x | tr -s '[:space:]' ,)
-
 .motiejus_toolshed: Dockerfile
 	docker build -t motiejus/toolshed \
-		--build-arg PACKAGES=$(pkg_nox) \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg VCS_REF=`git rev-parse --short HEAD` \
-		.
+		--build-arg VCS_REF=`git rev-parse --short HEAD` .
 	touch $@
 
-.PHONY: img start stop test compress
+################################################################################
+# Writable disk image below
+################################################################################
+
+.PHONY: img start stop test
 
 img: toolshed.img.xz
 
@@ -38,11 +36,10 @@ toolshed.img.xz: .tmp/.faux_builder
 		--name toolshed_builder \
 		--env IMG_DST=/x/$@ \
 		--env PASSWD=$(PASSWD) \
-		--env PACKAGES=$(pkg_base) \
 		-v `pwd`:/x \
 		motiejus/toolshed_builder /x/image/create
 
-deploy: .tmp/.faux_deploy
+deployable: .tmp/.faux_deploy
 
 start: toolshed.img
 	image/start $(PWD)
@@ -71,6 +68,5 @@ test: toolshed.img
 	docker build -t motiejus/toolshed_disk \
 		-f image/Dockerfile.deploy \
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg VCS_REF=`git rev-parse --short HEAD` \
-		.
+		--build-arg VCS_REF=`git rev-parse --short HEAD` .
 	mkdir -p $(dir $@) && touch $@

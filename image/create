@@ -3,7 +3,6 @@ set -euo pipefail
 set -x
 
 readonly passwd=${PASSWD:?Expected PASSWD}
-readonly packages=${PACKAGES:-}
 
 # post_setup is called when the system is fully setup
 # and the relevant directories are still mounted (/dev, /sys, etc)
@@ -22,9 +21,11 @@ post_setup() {
 
     chroot /target chown -R motiejus:motiejus /home/motiejus/.ssh
 
-    IFS=, read -ra pkgs <<< "$packages"
     chroot /target env DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        "${pkgs[@]}"
+        lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate \
+        tsocks vim man-db strace sudo  socat redir htop jq tree dnsmasq lshw \
+        iproute2 openssh-server tzdata git bc rsync pv elinks kpartx iodine \
+        fakechroot fakeroot
 
     chroot /target systemctl set-default multi-user.target
 }
