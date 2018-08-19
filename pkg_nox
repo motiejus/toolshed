@@ -11,4 +11,4 @@ debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc libsystemd-dev parted
 pbuilder psmisc binutils-doc doc-rfc cmake screen cowsay flex gcc gcc-doc grub2
 python-pip gdebi aptitude python3-matplotlib mencoder sqlite units graphviz
 nginx-doc nginx-extras qpdf lynx ipython3 python3-yaml mysql-client
-postgresql-client pgcli
+postgresql-client pgcli youtube-dl
