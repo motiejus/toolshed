@@ -10,7 +10,8 @@ RUN yes | env DEBIAN_FRONTEND=noninteractive unminimize
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
                     $(echo "$PACKAGES" | tr , ' ')
 
-ENV PATH="$HOME/.cargo/bin:$PATH"
+ENV PATH="/root/.cargo/bin:${PATH}"
+ENV USER=root
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
         rustup toolchain install nightly && \
         rustup target add x86_64-unknown-linux-musl && \
