@@ -1,6 +1,11 @@
 .PHONY: container lint push
 
 SCRIPTS = $(shell awk '/\#!\/bin\/bash/ && FNR == 1 {print FILENAME}' image/*)
+LABELS = $(addprefix --label org.label-schema.,\
+		 build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
+		 vcs-url=https://github.com/motiejus/toolshed \
+		 vcs-ref=$(shell git rev-parse --short HEAD) \
+		 schema-version=1.0)
 
 container: .motiejus_toolshed
 
@@ -17,9 +22,7 @@ push:
 	fi
 
 .motiejus_toolshed: Dockerfile
-	docker build -t motiejus/toolshed \
-		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg VCS_REF=`git rev-parse --short HEAD` .
+	docker build -t motiejus/toolshed $(LABELS) .
 	touch $@
 
 ################################################################################
@@ -65,8 +68,5 @@ test: toolshed.img
 	mkdir -p $(dir $@) && touch $@
 
 .tmp/.faux_deploy: toolshed.img.xz image/Dockerfile.deploy
-	docker build -t motiejus/toolshed_disk \
-		-f image/Dockerfile.deploy \
-		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg VCS_REF=`git rev-parse --short HEAD` .
+	docker build -t motiejus/toolshed_disk -f image/Dockerfile.deploy $(LABELS) .
 	mkdir -p $(dir $@) && touch $@

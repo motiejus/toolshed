@@ -1,6 +1,4 @@
 FROM ubuntu:18.04
-ARG BUILD_DATE
-ARG VCS_REF
 ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
@@ -24,7 +22,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libsystemd-dev parted pbuilder psmisc binutils-doc doc-rfc cmake screen \
     cowsay flex gcc gcc-doc grub2 python-pip gdebi aptitude python3-matplotlib \
     mencoder sqlite units graphviz nginx-doc nginx-extras qpdf lynx ipython3 \
-    python3-yaml mysql-client postgresql-client pgcli youtube-dl
+    python3-yaml mysql-client postgresql-client pgcli youtube-dl mdadm lvm2 \
+    dropbear-initramfs cryptsetup
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
     rustup toolchain install nightly && \
@@ -34,15 +33,14 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
     echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
     echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
 
+ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
+COPY overlay/etc/initramfs-tools/hooks/extras /etc/initramfs-tools/hooks/extras
+
+RUN sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    linux-image-generic
+
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure tzdata && \
     apt-file update && updatedb
-
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="toolshed" \
-      org.label-schema.description="ad-hoc command-line tools" \
-      org.label-schema.url="https://github.com/motiejus/toolshed" \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/motiejus/toolshed" \
-      org.label-schema.vendor="motiejus" \
-      org.label-schema.schema-version="1.0"
