@@ -40,7 +40,6 @@ RUN sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     linux-image-generic syslinux pxelinux memtest86+ && \
-    mkdir -p /var/lib/tftpboot/pxelinux/ && \
     cp /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
     cp /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
     cp /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \

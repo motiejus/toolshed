@@ -1,0 +1,8 @@
+default vesamenu.c32
+label rescue
+        menu label ^Rescue Mode
+        kernel vmlinuz
+        append vga=788 initrd=initrd.img init=/bin/sh
+label memtest
+        menu label ^memtest
+        kernel memtest
