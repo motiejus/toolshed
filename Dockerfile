@@ -7,7 +7,7 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
 RUN yes | env DEBIAN_FRONTEND=noninteractive unminimize
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate iproute2 \
-    vim man-db strace sudo  socat redir htop jq tree dnsmasq lshw tsocks rsync \
+    vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server tzdata git bc pv elinks kpartx iodine fakechroot python-all \
     fakeroot python3-all python-doc python3-doc postgresql-client graphviz gcc \
     build-essential cloc git-svn awscli bash-completion erlang erlang-doc curl \
@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
-    lynx dropbear-initramfs nginx-extras 
+    lynx nginx-extras tree dnsmasq lshw
 
 RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
@@ -34,10 +34,8 @@ RUN curl https://sh.rustup.rs -sSf | \
 
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
 COPY overlay/ /
-
-RUN sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
     linux-image-generic syslinux pxelinux memtest86+ && \
     cp /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
     cp /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
@@ -50,5 +48,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
       /var/lib/tftpboot/pxelinux/
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
-    dpkg-reconfigure tzdata && \
+    dpkg-reconfigure -f noninteractive tzdata && \
     apt-file update && updatedb
