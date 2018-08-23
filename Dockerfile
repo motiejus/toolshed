@@ -6,7 +6,6 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 RUN yes | env DEBIAN_FRONTEND=noninteractive unminimize
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-
     lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate iproute2 \
     vim man-db strace sudo  socat redir htop jq tree dnsmasq lshw tsocks rsync \
     openssh-server tzdata git bc pv elinks kpartx iodine fakechroot python-all \
