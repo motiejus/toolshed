@@ -6,24 +6,24 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 RUN yes | env DEBIAN_FRONTEND=noninteractive unminimize
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate tsocks \
-    vim man-db strace sudo  socat redir htop jq tree dnsmasq lshw iproute2 \
-    openssh-server tzdata git bc rsync pv elinks kpartx iodine fakechroot \
-    fakeroot python3-all python-all python-doc python3-doc mc curl \
-    build-essential cloc git-svn awscli bash-completion erlang erlang-doc \
-    erlang-manpages python-virtualenv dnsutils telnet xinetd graphicsmagick \
-    iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind \
-    pastebinit cppreference-doc-en-html ruby-dev xmlto python-pygments nodejs \
-    sox libsox-fmt-all lua5.2 lua5.2-doc python3-sphinx python3-flake8 zsh \
-    clang clang-6.0-doc iputils-ping doxygen debhelper pigz supervisor pypy \
-    pypy-dev rubber zip unzip redir mtr golang ipython autotools-dev nftables \
-    info gdb-doc netcat-openbsd python-dev sloccount stl-manual dh-systemd \
-    bsdgames debian-archive-keyring gdb ddd ddd-doc rkt ghc-doc ghc \
-    libsystemd-dev parted pbuilder psmisc binutils-doc doc-rfc cmake screen \
-    cowsay flex gcc gcc-doc grub2 python-pip gdebi aptitude python3-matplotlib \
-    mencoder sqlite units graphviz nginx-doc nginx-extras qpdf lynx ipython3 \
-    python3-yaml mysql-client postgresql-client pgcli youtube-dl mdadm lvm2 \
-    dropbear-initramfs cryptsetup
+
+    lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate iproute2 \
+    vim man-db strace sudo  socat redir htop jq tree dnsmasq lshw tsocks rsync \
+    openssh-server tzdata git bc pv elinks kpartx iodine fakechroot python-all \
+    fakeroot python3-all python-doc python3-doc postgresql-client graphviz gcc \
+    build-essential cloc git-svn awscli bash-completion erlang erlang-doc curl \
+    erlang-manpages python-virtualenv dnsutils telnet xinetd graphicsmagick mc \
+    iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind lvm2 \
+    cppreference-doc-en-html ruby-dev python-pygments binutils-doc pypy nodejs \
+    sox libsox-fmt-all lua5.2 lua5.2-doc python3-sphinx python3-flake8 doxygen \
+    pastebinit clang clang-6.0-doc iputils-ping debhelper pigz supervisor flex \
+    rubber golang ipython autotools-dev nftables debian-archive-keyring screen \
+    gdb-doc netcat-openbsd sloccount stl-manual dh-systemd python-dev pbuilder \
+    bsdgames gdb ddd ddd-doc rkt ghc-doc ghc zip unzip redir mtr zsh nginx-doc \
+    libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
+    cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
+    mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
+    lynx dropbear-initramfs nginx-extras 
 
 RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
