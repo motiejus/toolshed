@@ -16,8 +16,4 @@ Docker container with lots of tools. Builds two containers:
 
 ## Security considerations
 
-`motiejus/toolshed` is just a bunch of packages and can be safely used as-is.
-
-`motiejus/toolshed_disk` contains my (motiejus@) public ssh keys, sets a
-guess-able username/password, and starts sshd on startup. Keep this in
-mind if you want to use the image, or grep for `motiejus` in your fork.
+Grep `motiejus` in this repo. My public keys are imported in at least 1 place in this.
