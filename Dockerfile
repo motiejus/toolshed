@@ -40,10 +40,15 @@ RUN sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     linux-image-generic syslinux pxelinux memtest86+ && \
-    cp /boot/vmlinuz* /var/lib/tftpboot/pxelinux/vmlinuz && \
-    cp /boot/initrd* /var/lib/tftpboot/pxelinux/initrd.img && \
+    cp /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
+    cp /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
     cp /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \
-    cp /usr/lib/PXELINUX/pxelinux.0 /var/lib/tftpboot/pxelinux/pxelinux.0
+    cp /usr/lib/syslinux/modules/bios/ldlinux.c32 \
+         /usr/lib/syslinux/modules/bios/vesamenu.c32 \
+         /usr/lib/syslinux/modules/bios/libcom32.c32 \
+         /usr/lib/syslinux/modules/bios/libutil.c32 \
+         /usr/lib/PXELINUX/pxelinux.0 \
+      /var/lib/tftpboot/pxelinux/
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure tzdata && \
