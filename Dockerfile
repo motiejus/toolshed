@@ -34,12 +34,15 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
     echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
 
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
-COPY overlay/etc/initramfs-tools/hooks/extras /etc/initramfs-tools/hooks/extras
+COPY overlay/ /
 
 RUN sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    linux-image-generic
+    linux-image-generic syslinux pxelinux memtest86+ && \
+    cp /boot/vmlinuz* /var/lib/tftpboot/pxelinux/vmlinuz && \
+    cp /boot/initrd* /var/lib/tftpboot/pxelinux/initrd.img && \
+    cp /usr/lib/PXELINUX/pxelinux.0 /var/lib/tftpboot/pxelinux/pxelinux.0
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure tzdata && \
