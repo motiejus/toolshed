@@ -25,8 +25,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python3-yaml mysql-client postgresql-client pgcli youtube-dl mdadm lvm2 \
     dropbear-initramfs cryptsetup
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
-    rustup toolchain install nightly && \
+RUN curl https://sh.rustup.rs -sSf | \
+        sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
     rustup target add x86_64-unknown-linux-musl && \
     rustup target add armv7-unknown-linux-gnueabihf && \
     apt-get install -y gcc-7-arm-linux-gnueabihf && \
