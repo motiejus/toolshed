@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
-    lynx nginx-extras tree dnsmasq lshw
+    lynx nginx-extras tree dnsmasq lshw upx-ucl
 
 RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
