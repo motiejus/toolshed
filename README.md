@@ -17,10 +17,15 @@ Setup:
 
 Examples:
 
-    $ toolshed man strace
-    $ toolshed cargo build /x/
-    $ toolshed ipython3
+    $ toolshed cargo build --target x86_64-unknown-linux-musl \
+        --manifest-path=/x/Cargo.toml  # static amd64 executable
+    $ toolshed cargo build --target armv7-unknown-linux-gnueabihf \
+        --manifest-path=/x/Cargo.toml  # raspberry pi
+    $ toolshed man strace systemd.unit
 
-# A note on my public keys
+# Notes
 
-Grep `motiejus` in this repo. My public keys are imported in at least 1 place.
+* Grep `motiejus` in this repo. My public keys are imported in at least 1
+  place.
+* Toolshed contains a reasonable netboot environment. Network setup is an
+  exercise to the reader.
