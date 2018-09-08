@@ -21,7 +21,9 @@ Examples:
         --manifest-path=/x/Cargo.toml  # static amd64 executable
     $ toolshed cargo build --target armv7-unknown-linux-gnueabihf \
         --manifest-path=/x/Cargo.toml  # raspberry pi
-    $ toolshed man strace systemd.unit
+    $ toolshed man strace systemd.unit  # man pages not found on, say, osx
+    $ toolshed erl  # things that may not reside on your current env
+    $ toolshed /x/some_executable # just nice to have a disposable linux
 
 # Notes
 
