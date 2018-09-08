@@ -19,7 +19,7 @@ The above will execute the toolshed with `/x/` mounted as the current directory.
 
 ## A few examples
 
-Rust: statically compile amd64 executable (not even glibc executable):
+Rust: statically compile amd64 executable (not even depending on glibc):
 
     $ toolshed cargo build --target x86_64-unknown-linux-musl \
         --manifest-path=/x/Cargo.toml
@@ -35,7 +35,7 @@ View man pages normally not found, say, on osx:
 
 Things you may not have in your environment:
 
-    $ toolshed erl  # things that may not reside on your current env
+    $ toolshed erl
 
 In which package does some random file live?
 
