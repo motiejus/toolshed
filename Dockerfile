@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM buildpack-deps:bionic
 ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
@@ -6,11 +6,11 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list
 RUN yes | env DEBIAN_FRONTEND=noninteractive unminimize
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    lsof parallel debootstrap tmux apt-file nmap busybox wget mlocate iproute2 \
+    lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server tzdata git bc pv elinks kpartx iodine fakechroot python-all \
-    fakeroot python3-all python-doc python3-doc postgresql-client graphviz gcc \
-    build-essential cloc git-svn awscli bash-completion erlang erlang-doc curl \
+    fakeroot python3-all python-doc python3-doc postgresql-client nginx-extras \
+    build-essential cloc git-svn awscli bash-completion erlang erlang-doc lshw \
     erlang-manpages python-virtualenv dnsutils telnet xinetd graphicsmagick mc \
     iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind lvm2 \
     cppreference-doc-en-html ruby-dev python-pygments binutils-doc pypy nodejs \
@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
-    lynx nginx-extras tree dnsmasq lshw upx-ucl
+    lynx dnsmasq upx-ucl graphviz
 
 RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
