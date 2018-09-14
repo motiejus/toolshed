@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
-    lynx dnsmasq upx-ucl graphviz
+    lynx dnsmasq upx-ucl graphviz musl-tools
 
 RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
