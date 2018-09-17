@@ -1,5 +1,4 @@
 FROM buildpack-deps:bionic
-ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
         /etc/apt/sources.list | \
@@ -23,15 +22,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
     lynx dnsmasq upx-ucl graphviz musl-tools
-
-RUN curl https://sh.rustup.rs -sSf | \
-        sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
-    rustup target add x86_64-unknown-linux-musl && \
-    rustup target add armv7-unknown-linux-gnueabihf && \
-    cargo search --limit 0 && \
-    apt-get install -y gcc-7-arm-linux-gnueabihf && \
-    echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
-    echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
 
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
 COPY overlay/ /

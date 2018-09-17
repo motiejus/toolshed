@@ -19,16 +19,6 @@ The above will execute the toolshed with `/x/` mounted as the current directory.
 
 ## A few examples
 
-Rust: statically compile amd64 executable (not even depending on glibc):
-
-    $ toolshed cargo build --target x86_64-unknown-linux-musl \
-        --manifest-path=/x/Cargo.toml
-
-Rust: compile for raspberry pi:
-
-    $ toolshed cargo build --target armv7-unknown-linux-gnueabihf \
-        --manifest-path=/x/Cargo.toml
-
 View man pages normally not found, say, on osx:
 
     $ toolshed man strace systemd.unit
