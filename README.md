@@ -19,6 +19,10 @@ The above will execute the toolshed with `/x/` mounted as the current directory.
 
 ## A few examples
 
+A Bash prompt in a rich environment:
+
+    $ toolshed
+
 View man pages normally not found, say, on osx:
 
     $ toolshed man strace systemd.unit
