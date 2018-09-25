@@ -24,7 +24,8 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
          /usr/lib/PXELINUX/pxelinux.0 \
       /var/lib/tftpboot/pxelinux/
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt-get install \
+                    -o Dpkg::Options::="--force-confdef" -y \
     lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
