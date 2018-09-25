@@ -14,10 +14,10 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
         linux-image-generic syslinux pxelinux memtest86+ cryptsetup && \
     sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
-    cp /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
-    cp /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
-    cp /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \
-    cp /usr/lib/syslinux/modules/bios/ldlinux.c32 \
+    ln /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
+    ln /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
+    ln /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \
+    ln /usr/lib/syslinux/modules/bios/ldlinux.c32 \
          /usr/lib/syslinux/modules/bios/vesamenu.c32 \
          /usr/lib/syslinux/modules/bios/libcom32.c32 \
          /usr/lib/syslinux/modules/bios/libutil.c32 \
