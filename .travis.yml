@@ -6,7 +6,7 @@ addons:
       - moreutils
 
 script:
-  - make container push | ts '[%H:%M:%S]'
+  - bash -eo pipefail -c "make container push | ts '[%H:%M:%S]'"
 
 env:
   global:
