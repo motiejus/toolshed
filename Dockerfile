@@ -11,9 +11,9 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
     ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     \
-    sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    linux-image-generic syslinux pxelinux memtest86+ && \
+        linux-image-generic syslinux pxelinux memtest86+ cryptsetup && \
+    sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
     cp /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
     cp /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
     cp /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \
@@ -40,8 +40,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bsdgames gdb ddd ddd-doc rkt ghc-doc ghc zip unzip redir mtr zsh nginx-doc \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
-    mencoder sqlite units qpdf cmake cryptsetup xmlto grub2 python3-yaml pgcli \
-    lynx upx-ucl musl-tools iodine bc && \
+    musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
+    mencoder upx-ucl cmake && \
     \
     apt-file update && \
     \
