@@ -38,11 +38,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     pastebinit clang clang-6.0-doc iputils-ping debhelper pigz supervisor flex \
     rubber golang ipython autotools-dev nftables debian-archive-keyring screen \
     gdb-doc netcat-openbsd sloccount stl-manual dh-systemd python-dev pbuilder \
-    bsdgames gdb ddd ddd-doc rkt ghc-doc ghc zip unzip redir mtr zsh nginx-doc \
+    bsdgames gdb ddd ddd-doc rkt ghc-doc ghc cabal-install redir zsh nginx-doc \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
-    mencoder upx-ucl cmake git-buildpackage && \
+    mencoder upx-ucl cmake git-buildpackage zip unzip mtr && \
     \
     apt-file update && \
     \
