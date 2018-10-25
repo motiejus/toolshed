@@ -42,7 +42,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
-    mencoder upx-ucl cmake git-buildpackage zip unzip mtr && \
+    mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
+    upx-ucl jupyter && \
     \
     apt-file update && \
     \
