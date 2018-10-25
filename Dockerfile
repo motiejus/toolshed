@@ -1,4 +1,5 @@
 FROM buildpack-deps:bionic
+ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 COPY overlay/ /
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
@@ -24,6 +25,7 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
          /usr/lib/PXELINUX/pxelinux.0 \
       /var/lib/tftpboot/pxelinux/
 
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
                     -o Dpkg::Options::="--force-confdef" -y \
     lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
@@ -43,7 +45,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
     mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
-    upx-ucl jupyter && \
+    upx-ucl jupyter
+
+
+RUN curl https://sh.rustup.rs -sSf | \
+        sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
+    rustup target add x86_64-unknown-linux-musl && \
+    rustup target add armv7-unknown-linux-gnueabihf && \
+    cargo search --limit 0 && \
+    apt-get install -y gcc-7-arm-linux-gnueabihf && \
+    echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
+    echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config && \
     \
     apt-file update && \
     \
