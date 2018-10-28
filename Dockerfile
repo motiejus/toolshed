@@ -55,7 +55,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
     mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
-    upx-ucl jupyter inkscape pax moreutils biber \
+    upx-ucl jupyter inkscape pax moreutils biber && \
     \
     apt-file update && \
     \
