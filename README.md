@@ -12,7 +12,7 @@ Setup:
 
     $ grep -A3 toolshed ~/.profile
     toolshed() {
-        docker run --name toolshed -v `pwd`:/x -ti --rm motiejus/toolshed "$@"
+        docker run --name toolshed -v `pwd`:/x -w /x -ti --rm motiejus/toolshed "$@"
     }
 
 The above will execute the toolshed with `/x/` mounted as the current directory.
@@ -38,6 +38,11 @@ Inspect an executable in a seemingly disposable environment:
 Compile LaTeX to pdf:
 
     $ toolshed pdflatex /x/foo.tex
+
+Browse pandas documentation:
+
+    $ docker run -d -w /usr/share/doc/python-pandas-doc/html/ -p :8000 motiejus/toolshed python3 -m http.server
+    $ open http://localhost:8000/
 
 # Notes
 
