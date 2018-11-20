@@ -61,7 +61,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     git-pbuilder create \
         --distribution jessie \
         --components "main contrib non-free" \
-        --compressprog pigz \
         --mirror http://ftp.lt.debian.org/debian/ && \
     \
     apt-file update && \
