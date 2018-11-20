@@ -56,7 +56,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
     mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
-    upx-ucl python-pandas-doc moreutils cython3 && \
+    upx-ucl python-pandas-doc moreutils cython3 cowbuilder && \
     \
     apt-file update && \
     \
