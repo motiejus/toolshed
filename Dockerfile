@@ -58,11 +58,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
     upx-ucl python-pandas-doc moreutils cython3 cowbuilder && \
     \
-    git-pbuilder create \
-        --distribution jessie \
-        --components "main contrib non-free" \
-        --mirror http://ftp.lt.debian.org/debian/ && \
-    \
     apt-file update && \
     \
     updatedb
