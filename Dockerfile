@@ -58,7 +58,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
     upx-ucl python-pandas-doc moreutils cython3 cowbuilder && \
     \
-    cabal update && cabal install propellor
+    cabal update && cabal install propellor && \
     \
     apt-file update && \
     \
