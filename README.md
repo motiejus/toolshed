@@ -41,7 +41,7 @@ Compile LaTeX to pdf:
 
 Browse pandas documentation:
 
-    $ docker run -d -w /usr/share/doc/python-pandas-doc/html/ -p :8000 motiejus/toolshed python3 -m http.server
+    $ docker run -d -w /usr/share/doc/python-pandas-doc/html/ -p 8000:8000 motiejus/toolshed python3 -m http.server
     $ open http://localhost:8000/
 
 # Notes
