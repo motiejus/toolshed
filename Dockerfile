@@ -30,7 +30,7 @@ RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
     rustup target add x86_64-unknown-linux-musl && \
     rustup target add armv7-unknown-linux-gnueabihf && \
-    cargo search --limit 0 && \
+    cargo install cargo-tree && \
     apt-get install -y gcc-7-arm-linux-gnueabihf && \
     echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
     echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
