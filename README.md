@@ -44,6 +44,12 @@ Browse pandas documentation:
     $ docker run -d -w /usr/share/doc/python-pandas-doc/html/ -p 8000:8000 motiejus/toolshed python3 -m http.server
     $ open http://localhost:8000/
 
+
+Browse Rust stdlib documentation:
+
+    $ docker run -d -w /root/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/share/doc/rust/html -p 8000:8000 motiejus/toolshed python3 -m http.server
+    $ open http://localhost:8000/std/index.html
+
 # Notes
 
 * Toolshed contains a reasonable netboot environment. Network setup is an
