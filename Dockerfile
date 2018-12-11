@@ -9,6 +9,8 @@ RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
     \
     yes | env DEBIAN_FRONTEND=noninteractive unminimize && \
     \
+    sed -i -e 's/^"\([^ ]\)/\1/' -e 's/^"\(  \+\)/\1/' /etc/vim/vimrc && \
+    \
     ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     \
