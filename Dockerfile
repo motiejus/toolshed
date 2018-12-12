@@ -58,8 +58,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
     mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
-    upx-ucl python-pandas-doc moreutils cython3 cowbuilder wait-for-it gnupg2 \
-    && \
+    upx-ucl python-pandas-doc moreutils cython3 cowbuilder wait-for-it gpgv2 \
+    gnupg2 && \
     \
     cabal update && cabal install propellor && \
     \
