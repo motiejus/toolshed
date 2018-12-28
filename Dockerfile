@@ -3,10 +3,7 @@ ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 COPY overlay/ /
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
-RUN awk -F'# ' '/^deb /{n=1;next}; n==1 && /# deb-src/{print NR}; n=0' \
-        /etc/apt/sources.list | \
-        xargs -I{} sed -i '{}s/^# //' /etc/apt/sources.list && \
-    \
+RUN sed -ine '/^deb/p' -e '/^deb/ s/deb/deb-src/p' sources.list && \
     yes | env DEBIAN_FRONTEND=noninteractive unminimize && \
     \
     sed -i -e 's/^"\([^ ]\)/\1/' -e 's/^"\(  \+\)/\1/' /etc/vim/vimrc && \
