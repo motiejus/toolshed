@@ -60,7 +60,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     cabal update && cabal install propellor && \
     \
     git clone --recursive \
-        https://github.com/motiejus/dotfiles /root/.dotfiles && \
+        https://github.com/motiejus/dotfiles \
+        /root/.dotfiles && \
     stow -d /root/.dotfiles ctags tmux vim && \
     \
     apt-file update && \
