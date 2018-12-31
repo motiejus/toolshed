@@ -7,7 +7,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     \
     yes | env DEBIAN_FRONTEND=noninteractive unminimize && \
     \
-    sed -ri 's/^"(  |)([^ ])/\1\2/'  /etc/vim/vimrc && \
+    sed -ri 's/^"(  |)([^ ])/\1\2/' /etc/vim/vimrc && \
     \
     ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
