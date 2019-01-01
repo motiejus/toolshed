@@ -28,7 +28,7 @@ RUN curl https://sh.rustup.rs -sSf | \
         sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
     rustup target add x86_64-unknown-linux-musl && \
     rustup target add armv7-unknown-linux-gnueabihf && \
-    cargo install cargo-tree && \
+    cargo install cargo-tree rusty-tags && \
     apt-get install -y gcc-7-arm-linux-gnueabihf && \
     echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
     echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
@@ -54,8 +54,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
     mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
-    gnupg2 stow upx-ucl python-pandas-doc moreutils cython3 cowbuilder \
-    wait-for-it gpgv2 && \
+    gnupg2 stow upx-ucl python-pandas-doc cython3 cowbuilder wait-for-it ctags \
+    gpgv2 moreutils && \
     \
     cabal update && cabal install propellor && \
     \
