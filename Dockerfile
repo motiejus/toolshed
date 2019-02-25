@@ -1,4 +1,4 @@
-FROM buildpack-deps:bionic
+FROM buildpack-deps:cosmic
 ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 COPY overlay/ /
