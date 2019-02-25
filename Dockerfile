@@ -7,11 +7,12 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     \
     yes | env DEBIAN_FRONTEND=noninteractive unminimize && \
     \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        linux-image-generic syslinux pxelinux memtest86+ cryptsetup tzdata && \
+    \
     ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        linux-image-generic syslinux pxelinux memtest86+ cryptsetup && \
     sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
     ln /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
     ln /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
