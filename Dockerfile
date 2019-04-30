@@ -56,7 +56,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     mencoder cmake git-buildpackage zip unzip mtr python3-pandas python3-scipy \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
     gnupg2 stow upx-ucl python-pandas-doc cython3 cowbuilder wait-for-it ctags \
-    gpgv2 moreutils pdftk-java propellor && \
+    gpgv2 moreutils pdftk-java propellor libsox-dev && \
     \
     git clone --recursive \
         https://github.com/motiejus/dotfiles \
