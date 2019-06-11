@@ -32,8 +32,9 @@ RUN curl https://sh.rustup.rs -sSf | \
     cargo install cargo-tree rusty-tags && \
     apt-get install -y gcc-7-arm-linux-gnueabihf && \
     echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
-    echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config
-
+    echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config && \
+    \
+    curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
                     -o Dpkg::Options::="--force-confdef" -y \
