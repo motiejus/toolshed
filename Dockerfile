@@ -58,7 +58,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     jupyter inkscape pax biber python3-sphinxcontrib.spelling python3-nbsphinx \
     gnupg2 stow upx-ucl python-pandas-doc cython3 cowbuilder wait-for-it ctags \
     gpgv2 moreutils pdftk-java propellor libsox-dev unrar less openvpn \
-    pgformatter software-properties-common shellcheck && \
+    pgformatter software-properties-common shellcheck protobuf-compiler && \
     \
     git clone --recursive \
         https://github.com/motiejus/dotfiles \
