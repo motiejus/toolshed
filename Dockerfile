@@ -47,7 +47,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     gpgv2 moreutils pdftk-java propellor libsox-dev unrar less openvpn latexmk \
     pgformatter software-properties-common shellcheck protobuf-compiler && \
     \
-    curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs \
+    curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs && \
     \
     git clone --recursive \
         https://github.com/motiejus/dotfiles \
