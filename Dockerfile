@@ -1,5 +1,4 @@
 FROM buildpack-deps:disco
-ENV USER=root PATH="/root/.cargo/bin:${PATH}"
 
 COPY overlay/ /
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
@@ -24,18 +23,6 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
          /usr/lib/PXELINUX/pxelinux.0 \
       /var/lib/tftpboot/pxelinux/
 
-
-RUN curl https://sh.rustup.rs -sSf | \
-        sh -s -- -y --default-toolchain nightly-x86_64-unknown-linux-gnu && \
-    rustup target add x86_64-unknown-linux-musl && \
-    rustup target add armv7-unknown-linux-gnueabihf && \
-    cargo install cargo-tree rusty-tags && \
-    apt-get install -y gcc-7-arm-linux-gnueabihf && \
-    echo '[target.armv7-unknown-linux-gnueabihf]' > ~/.cargo/config && \
-    echo 'linker = "arm-linux-gnueabihf-gcc-7"' >> ~/.cargo/config && \
-    \
-    curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs
-
 RUN DEBIAN_FRONTEND=noninteractive apt-get install \
                     -o Dpkg::Options::="--force-confdef" -y \
     lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
@@ -59,6 +46,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     gnupg2 stow upx-ucl python-pandas-doc cython3 cowbuilder wait-for-it ctags \
     gpgv2 moreutils pdftk-java propellor libsox-dev unrar less openvpn latexmk \
     pgformatter software-properties-common shellcheck protobuf-compiler && \
+    \
+    curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs
     \
     git clone --recursive \
         https://github.com/motiejus/dotfiles \
