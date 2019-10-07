@@ -47,7 +47,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     gpgv2 moreutils pdftk-java propellor libsox-dev unrar less openvpn latexmk \
     texlive-lang-european dos2unix postgis postgresql-11-pgrouting postgis-gui \
     pgformatter software-properties-common shellcheck protobuf-compiler entr \
-    postgis-doc && \
+    postgis-doc cloud-guest-utils && \
     \
     curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs && \
     \
