@@ -1,0 +1,111 @@
+#!/bin/bash
+set -xeuo pipefail
+
+fs=$1
+dest=$2
+
+main() {
+    create
+    bootstrap
+    setup_os
+    cleanup
+
+    ls -lh /rootfs
+    pv -i 60 /rootfs | xz -0c > "$dest"
+}
+
+# post_setup is called when the system is fully setup
+# and the relevant directories are still mounted (/dev, /sys, etc)
+post_setup() {
+    chroot /target useradd -s /bin/bash -m -G sudo,docker pi
+    echo '%sudo  ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/sudoers
+    echo "pi:raspberry" | chroot /target chpasswd
+
+    mkdir -p /target/home/pi/.ssh
+    {
+        cat .tmp/test_rsa.pub
+        curl https://github.com/motiejus.keys
+    } > /target/home/pi/.ssh/authorized_keys
+
+    chroot /target chown -R pi:pi /home/pi/.ssh
+    chroot /target systemctl set-default multi-user.target
+}
+
+create() {
+    rm -f /rootfs && truncate -s15G /rootfs
+    parted -a optimal /rootfs mklabel msdos
+    parted -a optimal /rootfs unit mib mkpart primary ext2 1 100%
+    parted -a optimal /rootfs set 1 boot on
+    rm -f /dev/loop0 /dev/loop0p1
+    mknod /dev/loop0 b 7 0 && losetup -P /dev/loop0 /rootfs
+    mknod /dev/loop0p1 b 259 0
+    trap debug EXIT
+    mkfs.ext4 /dev/loop0p1
+    mkdir /target
+    mount -t ext4 /dev/loop0p1 /target
+}
+
+bootstrap() {
+    tar -xC /target -f "$fs"
+}
+
+setup_os() {
+    mount -t sysfs none /target/sys
+    mount -t proc none /target/proc
+    mount --bind /dev/pts /target/dev/pts
+    mount --bind /dev/shm /target/dev/shm
+    mount --bind /dev /target/dev
+
+    echo '(hd0) /dev/loop0' > /target/boot/grub/device.map
+    sed -i '/GRUB_CMDLINE_LINUX/d' /target/etc/default/grub
+    echo 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' >> /target/etc/default/grub
+    chroot /target grub-mkconfig -o /boot/grub/grub.cfg
+    /target/usr/sbin/grub-install --no-floppy \
+        --root-directory=/target \
+        --grub-mkdevicemap=/target/boot/grub/device.map \
+        --directory /target/usr/lib/grub/i386-pc /dev/loop0
+    sed -i 's/loop0p1/sda1/g' /target/boot/grub/grub.cfg
+    chroot /target update-initramfs -u
+    # grub-install should keep working once booted from a physical media
+    echo '(hd0) /dev/sda' > /target/boot/grub/device.map
+
+    cp resize2fs_once.service /target/etc/systemd/system/
+    cp resize_sda /target/usr/local/sbin/
+    chroot /target systemctl enable resize2fs_once.service
+
+    {
+        echo '[Match]'
+        echo 'Name=eth0'
+        echo
+        echo '[Network]'
+        echo 'DHCP=ipv4'
+    } >> /target/etc/systemd/network/20-wired.network
+    chroot /target systemctl enable systemd-networkd.service
+
+    post_setup
+
+    cp /target/boot/vmlinuz-* .tmp/vmlinuz
+    cp /target/boot/initrd.img-* .tmp/initrd.img
+    umount /target/sys
+    umount -R /target/proc # has /target/proc/sys/fs/binfmt_misc
+    umount /target/dev
+    umount /target/dev/shm
+    umount /target/dev/pts
+    umount /target
+}
+
+cleanup() {
+    losetup -d /dev/loop0
+    rm /dev/loop0 /dev/loop0p1
+    trap - EXIT
+}
+
+debug() {
+    echo "Entering a debug shell. It will be cleaned up after exit"
+    bash 2<&6
+    cleanup
+}
+
+# save stderr, so "debug" shell can use it somewhat unclobbered
+exec 6<&2
+main 2>&1 | ts '[%H:%M:%S]'
