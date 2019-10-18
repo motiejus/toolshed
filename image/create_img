@@ -19,6 +19,7 @@ main() {
 post_setup() {
     chroot /target useradd -s /bin/bash -m -G sudo,docker pi
     echo '%sudo  ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/sudoers
+    echo 'toolshed' > /target/etc/hostname
     echo "pi:raspberry" | chroot /target chpasswd
 
     mkdir -p /target/home/pi/.ssh
@@ -40,7 +41,7 @@ create() {
     mknod /dev/loop0 b 7 0 && losetup -P /dev/loop0 /rootfs
     mknod /dev/loop0p1 b 259 0
     trap debug EXIT
-    mkfs.ext4 /dev/loop0p1
+    mkfs.ext4 -L toolshed /dev/loop0p1
     mkdir /target
     mount -t ext4 /dev/loop0p1 /target
 }
@@ -64,10 +65,10 @@ setup_os() {
         --root-directory=/target \
         --grub-mkdevicemap=/target/boot/grub/device.map \
         --directory /target/usr/lib/grub/i386-pc /dev/loop0
-    sed -i 's/loop0p1/sda1/g' /target/boot/grub/grub.cfg
+    sed -i 's|loop0p1|disk/by-label/toolshed|g' /target/boot/grub/grub.cfg
     chroot /target update-initramfs -u
     # grub-install should keep working once booted from a physical media
-    echo '(hd0) /dev/sda' > /target/boot/grub/device.map
+    echo '(hd0) /dev/disk/by-label/toolshed' > /target/boot/grub/device.map
 
     cp resize2fs_once.service /target/etc/systemd/system/
     cp resize_sda /target/usr/local/sbin/
