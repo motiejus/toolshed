@@ -59,6 +59,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
         dnsmasq.service \
         epmd.service epmd.socket \
         nginx.service \
+        openvpn.service \
         postgresql.service \
         snapd.socket \
         supervisor.service \
