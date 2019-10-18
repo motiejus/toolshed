@@ -20,6 +20,10 @@ post_setup() {
     chroot /target useradd -s /bin/bash -m -G sudo,docker pi
     echo '%sudo  ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/sudoers
     echo 'toolshed' > /target/etc/hostname
+    {
+        echo '127.0.0.1 toolshed'
+        echo '::1       toolshed'
+    } >> /target/etc/hosts
     echo "pi:raspberry" | chroot /target chpasswd
 
     mkdir -p /target/home/pi/.ssh
