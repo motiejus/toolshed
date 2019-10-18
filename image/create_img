@@ -21,8 +21,8 @@ post_setup() {
     echo '%sudo  ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/sudoers
     echo 'toolshed' > /target/etc/hostname
     {
-        echo '127.0.0.1 toolshed'
-        echo '::1       toolshed'
+        echo '127.0.0.1 localhost toolshed'
+        echo '::1       localhost toolshed'
     } >> /target/etc/hosts
     echo "pi:raspberry" | chroot /target chpasswd
 
