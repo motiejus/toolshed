@@ -50,6 +50,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     postgis-doc cloud-guest-utils docker.io qemu-system-x86 spatialite-bin \
     libsqlite3-mod-spatialite udev && \
     \
+    systemctl disable \
+        epmd.service epmd.socket \
+        nginx.service \
+        dnsmasq.service \
+        avahi-daemon.service avahi-daemon.socket \
+        containerd.service && \
+    \
     curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs && \
     \
     git clone --recursive \
