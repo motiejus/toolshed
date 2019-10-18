@@ -51,11 +51,20 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     libsqlite3-mod-spatialite udev && \
     \
     systemctl disable \
+        NetworkManager.service \
+        apparmor.service \
+        apt-daily-upgrade.timer apt-daily.timer \
+        avahi-daemon.service avahi-daemon.socket \
+        containerd.service \
+        dnsmasq.service \
         epmd.service epmd.socket \
         nginx.service \
-        dnsmasq.service \
-        avahi-daemon.service avahi-daemon.socket \
-        containerd.service && \
+        postgresql.service \
+        snapd.socket \
+        supervisor.service \
+        ubuntu-fan.service \
+        unattended-upgrades.service \
+        xinetd.service && \
     \
     curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs && \
     \
