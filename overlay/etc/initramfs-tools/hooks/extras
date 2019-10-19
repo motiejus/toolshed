@@ -30,4 +30,10 @@ for x in fdisk cfdisk parted e2fsck mke2fs mkntfs e2fsck fsck.fat; do
     copy_exec /sbin/${x}
 done
 
+# installation
+copy_exec /usr/bin/cdebootstrap
+
+# utils
+copy_exec /usr/bin/tmux
+
 exit 0
