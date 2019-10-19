@@ -1,7 +1,5 @@
 FROM buildpack-deps:disco
 
-ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
-
 RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     \
     yes | env DEBIAN_FRONTEND=noninteractive unminimize && \
@@ -51,6 +49,8 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
         xinetd.service && \
     \
     curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs && \
+    curl -o /etc/dropbear-initramfs/authorized_keys \
+        https://github.com/motiejus.keys &&
     \
     git clone --recursive \
         https://github.com/motiejus/dotfiles \
@@ -73,6 +73,6 @@ RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
          /usr/lib/syslinux/modules/bios/libcom32.c32 \
          /usr/lib/syslinux/modules/bios/libutil.c32 \
          /usr/lib/PXELINUX/pxelinux.0 \
-      /var/lib/tftpboot/pxelinux/
-
-RUN updatedb
+      /var/lib/tftpboot/pxelinux/ && \
+    \
+    updatedb
