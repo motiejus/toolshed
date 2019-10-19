@@ -10,8 +10,8 @@ main() {
     setup_os
     cleanup
 
-    ls -lh /rootfs
-    pv -n -i 60 /rootfs | xz -0c > "$dest"
+    ls -lh /toolshed.img
+    pv -n -i 60 /toolshed.img | xz -0c > "$dest"
 }
 
 # post_setup is called when the system is fully setup
@@ -37,12 +37,12 @@ post_setup() {
 }
 
 create() {
-    rm -f /rootfs && truncate -s15G /rootfs
-    parted -a optimal /rootfs mklabel msdos
-    parted -a optimal /rootfs unit mib mkpart primary ext2 1 100%
-    parted -a optimal /rootfs set 1 boot on
+    rm -f /toolshed.img && truncate -s15G /toolshed.img
+    parted -a optimal /toolshed.img mklabel msdos
+    parted -a optimal /toolshed.img unit mib mkpart primary ext2 1 100%
+    parted -a optimal /toolshed.img set 1 boot on
     rm -f /dev/loop0 /dev/loop0p1
-    mknod /dev/loop0 b 7 0 && losetup -P /dev/loop0 /rootfs
+    mknod /dev/loop0 b 7 0 && losetup -P /dev/loop0 /toolshed.img
     mknod /dev/loop0p1 b 259 0
     trap debug EXIT
     mkfs.ext4 -L toolshed /dev/loop0p1
