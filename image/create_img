@@ -70,7 +70,7 @@ setup_os() {
         --grub-mkdevicemap=/target/boot/grub/device.map \
         --directory /target/usr/lib/grub/i386-pc /dev/loop0
     uuid=$(blkid -o export /dev/loop0p1 | awk -F= '/^UUID=/{print $2}')
-    sed -i "s|loop0p1|disk/by-uuid/${uuid}|g" /target/boot/grub/grub.cfg
+    sed -i "s|/dev/loop0p1|UUID={uuid}|g" /target/boot/grub/grub.cfg
     chroot /target update-initramfs -u
     # grub-install should keep working once booted from a physical media
     echo "(hd0) /dev/disk/by-uuid/${uuid}" > /target/boot/grub/device.map
