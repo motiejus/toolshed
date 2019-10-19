@@ -28,10 +28,10 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     gnupg2 stow upx-ucl python-pandas-doc cython3 cowbuilder wait-for-it ctags \
     gpgv2 moreutils pdftk-java propellor libsox-dev unrar less openvpn latexmk \
     texlive-lang-european dos2unix postgis postgresql-11-pgrouting postgis-gui \
-    pgformatter software-properties-common shellcheck protobuf-compiler entr \
-    postgis-doc cloud-guest-utils docker.io qemu-system-x86 spatialite-bin \
-    libsqlite3-mod-spatialite udev cdebootstrap cdebootstrap-static \
-    linux-image-generic syslinux pxelinux memtest86+ cryptsetup tzdata && \
+    pgformatter software-properties-common shellcheck protobuf-compiler tzdata \
+    spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
+    cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
+    syslinux pxelinux memtest86+ udev cryptsetup entr && \
     \
     systemctl disable \
         NetworkManager.service \
