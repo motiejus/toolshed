@@ -48,7 +48,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     texlive-lang-european dos2unix postgis postgresql-11-pgrouting postgis-gui \
     pgformatter software-properties-common shellcheck protobuf-compiler entr \
     postgis-doc cloud-guest-utils docker.io qemu-system-x86 spatialite-bin \
-    libsqlite3-mod-spatialite udev && \
+    libsqlite3-mod-spatialite udev cdebootstrap cdebootstrap-static && \
     \
     systemctl disable \
         NetworkManager.service \
