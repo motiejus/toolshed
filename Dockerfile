@@ -1,30 +1,12 @@
 FROM buildpack-deps:disco
 
-COPY overlay/ /
 ADD https://github.com/motiejus.keys /etc/dropbear-initramfs/authorized_keys
+
 RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     \
     yes | env DEBIAN_FRONTEND=noninteractive unminimize && \
     \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        linux-image-generic syslinux pxelinux memtest86+ cryptsetup tzdata && \
-    \
-    ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata && \
-    \
-    sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
-    ln /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
-    ln /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
-    ln /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \
-    ln /usr/lib/syslinux/modules/bios/ldlinux.c32 \
-         /usr/lib/syslinux/modules/bios/vesamenu.c32 \
-         /usr/lib/syslinux/modules/bios/libcom32.c32 \
-         /usr/lib/syslinux/modules/bios/libutil.c32 \
-         /usr/lib/PXELINUX/pxelinux.0 \
-      /var/lib/tftpboot/pxelinux/
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install \
-                    -o Dpkg::Options::="--force-confdef" -y \
+    env DEBIAN_FRONTEND=noninteractive apt-get install -y \
     lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
@@ -48,7 +30,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
     texlive-lang-european dos2unix postgis postgresql-11-pgrouting postgis-gui \
     pgformatter software-properties-common shellcheck protobuf-compiler entr \
     postgis-doc cloud-guest-utils docker.io qemu-system-x86 spatialite-bin \
-    libsqlite3-mod-spatialite udev cdebootstrap cdebootstrap-static && \
+    libsqlite3-mod-spatialite udev cdebootstrap cdebootstrap-static \
+    linux-image-generic syslinux pxelinux memtest86+ cryptsetup tzdata && \
     \
     systemctl disable \
         NetworkManager.service \
@@ -74,6 +57,22 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install \
         /root/.dotfiles && \
     stow -d /root/.dotfiles ctags tmux vim && \
     \
-    apt-file update && \
+    apt-file update
+
+COPY overlay/ /
+
+RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
     \
-    updatedb
+    sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
+    ln /boot/vmlinuz-* /var/lib/tftpboot/pxelinux/vmlinuz && \
+    ln /boot/initrd.img-* /var/lib/tftpboot/pxelinux/initrd.img && \
+    ln /boot/memtest86+.bin /var/lib/tftpboot/pxelinux/memtest && \
+    ln /usr/lib/syslinux/modules/bios/ldlinux.c32 \
+         /usr/lib/syslinux/modules/bios/vesamenu.c32 \
+         /usr/lib/syslinux/modules/bios/libcom32.c32 \
+         /usr/lib/syslinux/modules/bios/libutil.c32 \
+         /usr/lib/PXELINUX/pxelinux.0 \
+      /var/lib/tftpboot/pxelinux/
+
+RUN updatedb
