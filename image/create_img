@@ -11,7 +11,7 @@ main() {
     cleanup
 
     ls -lh /toolshed.img
-    pv -n -i 10 /toolshed.img | pigz -1 > "$dest"
+    lz4 -v /toolshed.img "$dest"
 }
 
 # post_setup is called when the system is fully setup

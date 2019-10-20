@@ -1,6 +1,6 @@
 VSN = $(shell date +%F)_$(shell git rev-parse --short HEAD)
 
-toolshed-$(VSN).img.gz: .tmp/toolshed.tar .tmp/test_rsa.pub create_img
+toolshed-$(VSN).img.lz4: .tmp/toolshed.tar .tmp/test_rsa.pub create_img
 	docker run --privileged -ti --rm \
 		--init \
 		-v $(PWD):/x \
