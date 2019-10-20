@@ -1,4 +1,4 @@
-toolshed.img.xz: .tmp/toolshed.tar .tmp/test_rsa.pub create_img
+toolshed.img.gz: .tmp/toolshed.tar .tmp/test_rsa.pub create_img
 	docker run --privileged -ti --rm \
 		--init \
 		-v $(PWD):/x \
