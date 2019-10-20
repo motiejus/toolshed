@@ -51,7 +51,10 @@ create() {
 }
 
 bootstrap() {
-    tar -xC /target -f "$fs"
+    pushd /
+    cp -a $(ls / | grep -vE '^(dev|proc|sys|x|target|toolshed.img)$') /target/
+    popd
+    mkdir -p /target/{proc,sys}/ /target/dev/{pts,shm}/
 }
 
 setup_os() {

@@ -1,1 +1,4 @@
 .tmp/
+
+/image/toolshed*.img.lz4
+/image/toolshed*.img
