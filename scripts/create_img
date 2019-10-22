@@ -1,8 +1,7 @@
 #!/bin/bash
 set -xeuo pipefail
 
-fs=$1
-dest=$2
+dest=$1
 
 main() {
     create
@@ -27,10 +26,7 @@ post_setup() {
     echo "pi:raspberry" | chroot /target chpasswd
 
     mkdir -p /target/home/pi/.ssh
-    {
-        cat .tmp/test_rsa.pub
-        curl https://github.com/motiejus.keys
-    } > /target/home/pi/.ssh/authorized_keys
+    curl https://github.com/motiejus.keys > /target/home/pi/.ssh/authorized_keys
 
     chroot /target chown -R pi:pi /home/pi/.ssh
     chroot /target systemctl set-default multi-user.target
@@ -78,8 +74,8 @@ setup_os() {
     # grub-install should keep working once booted from a physical media
     echo "(hd0) /dev/disk/by-uuid/${uuid}" > /target/boot/grub/device.map
 
-    cp resize2fs_once.service /target/etc/systemd/system/
-    cp resize_sda /target/usr/local/sbin/
+    cp scripts/resize2fs_once.service /target/etc/systemd/system/
+    cp scripts/resize_sda /target/usr/local/sbin/
     chroot /target systemctl enable resize2fs_once.service
 
     {
