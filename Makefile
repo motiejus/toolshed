@@ -24,7 +24,7 @@ push:
 toolshed.img: toolshed-$(VSN).img.lz4
 	lz4 -k -d $< $@
 
-toolshed-$(VSN).img.lz4: scripts/create_img
+toolshed-$(VSN).img.lz4:
 	mkdir -p .tmp
 	docker run --privileged -ti --rm \
 		--init \
@@ -34,7 +34,7 @@ toolshed-$(VSN).img.lz4: scripts/create_img
 		scripts/create_img $@
 
 .PHONY: start
-start: toolshed.img
+start:
 	qemu-system-x86_64 \
 		-m 512 \
 		-nographic \
@@ -45,3 +45,15 @@ start: toolshed.img
 		-kernel ".tmp/vmlinuz" \
 		-initrd ".tmp/initrd.img" \
 		-hda "toolshed.img"
+
+.PHONY: start_initrd
+start_initrd:
+	qemu-system-x86_64 \
+		-m 512 \
+		-nographic \
+		-display curses \
+		-append "init=/bin/sh console=ttyS0 net.ifnames=0 biosdevname=0 nomodeset" \
+		-device e1000,netdev=net0 \
+		-netdev user,id=net0,hostfwd=tcp::5555-:22 \
+		-kernel ".tmp/vmlinuz" \
+		-initrd ".tmp/initrd.img"

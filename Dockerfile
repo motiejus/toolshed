@@ -61,7 +61,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
 
 COPY overlay/ /
 
-RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
+RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     \
     sed -i '$a CRYPTSETUP=y' /etc/cryptsetup-initramfs/conf-hook && \
@@ -74,5 +74,6 @@ RUN ln -fs /usr/share/zoneinfo/Europe/Vilnius /etc/localtime && \
          /usr/lib/syslinux/modules/bios/libutil.c32 \
          /usr/lib/PXELINUX/pxelinux.0 \
       /var/lib/tftpboot/pxelinux/ && \
+    update-initramfs -v -k all -u && \
     \
     updatedb
