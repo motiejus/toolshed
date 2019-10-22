@@ -34,7 +34,7 @@ toolshed-$(VSN).img.lz4:
 		scripts/create_img $@
 
 .PHONY: start
-start:
+start: toolshed.img
 	qemu-system-x86_64 \
 		-m 512 \
 		-nographic \
@@ -47,12 +47,12 @@ start:
 		-hda "toolshed.img"
 
 .PHONY: start_initrd
-start_initrd:
+start_initrd: toolshed-$(VSN).img.lz4
 	qemu-system-x86_64 \
 		-m 512 \
 		-nographic \
 		-display curses \
-		-append "init=/bin/sh console=ttyS0 net.ifnames=0 biosdevname=0 nomodeset" \
+		-append "console=ttyS0 init=/bin/bash net.ifnames=0 biosdevname=0 nomodeset" \
 		-device e1000,netdev=net0 \
 		-netdev user,id=net0,hostfwd=tcp::5555-:22 \
 		-kernel ".tmp/vmlinuz" \
