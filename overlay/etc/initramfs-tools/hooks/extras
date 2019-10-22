@@ -31,7 +31,7 @@ for x in fdisk cfdisk parted e2fsck mke2fs mkntfs e2fsck fsck.fat; do
 done
 
 # installation and utils
-for x in bash cdebootstrap tmux chown; do
+for x in bash cdebootstrap ldd tmux chown; do
     copy_exec /usr/bin/${x}
 done
 
