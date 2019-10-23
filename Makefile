@@ -52,7 +52,7 @@ start_initrd: toolshed-$(VSN).img.lz4
 		-m 512 \
 		-nographic \
 		-display curses \
-		-append "console=ttyS0 init=/bin/bash net.ifnames=0 biosdevname=0 nomodeset" \
+		-append "console=ttyS0 init=/usr/bin/bash net.ifnames=0 biosdevname=0 nomodeset" \
 		-device e1000,netdev=net0 \
 		-netdev user,id=net0,hostfwd=tcp::5555-:22 \
 		-kernel ".tmp/vmlinuz" \
