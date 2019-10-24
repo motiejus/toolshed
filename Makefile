@@ -1,5 +1,3 @@
-.PHONY: container push
-
 VSN = $(shell date +%Y%m%d)_$(shell git rev-parse --short HEAD)
 LABELS = $(addprefix --label org.label-schema.,\
 		 build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
@@ -7,31 +5,47 @@ LABELS = $(addprefix --label org.label-schema.,\
 		 vcs-ref=$(shell git rev-parse --short HEAD) \
 		 schema-version=1.0)
 
-container:
+.PHONY: container push-container push-image
+container: .tmp/container
+
+.tmp/container:
+	mkdir -p .tmp
 	docker build -t motiejus/toolshed $(LABELS) .
 	touch $@
 
-push:
+ifeq ($(TRAVIS_BRANCH),master)
+push-container: .tmp/container
+	mkdir -p .tmp
 	docker images
-	@if [ ! "$(TRAVIS_BRANCH)" = "master" ]; then \
-		echo "branch $(TRAVIS_BRANCH) detected, expected master"; \
-	else \
-		echo "$(DOCKER_PASS)" | docker login -u motiejus --password-stdin; \
-		docker push motiejus/toolshed:latest; \
-	fi
+	echo "$(DOCKER_PASS)" | docker login -u motiejus --password-stdin;
+	docker push motiejus/toolshed:latest
+push-image: toolshed-$(VSN).img.lz4
+	mkdir -p .tmp
+	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) secrets/key.asc > .tmp/key
+	rsync -e "ssh -i .tmp/key -o StrictHostKeyChecking=accept-new" -aP $< ci@vno1.jakstys.lt:
+else
+push-image:
+	echo "branch $(TRAVIS_BRANCH) detected, not pushing image"
+	touch $@
+push-container:
+	echo "branch $(TRAVIS_BRANCH) detected, not pushing container"
+	touch $@
+endif
 
 # Below is the setup for bootable image
-toolshed.img: toolshed-$(VSN).img.lz4
-	lz4 -k -d $< $@
-
-toolshed-$(VSN).img.lz4:
+toolshed-$(VSN).img.lz4: .tmp/container
 	mkdir -p .tmp
-	docker run --privileged -ti --rm \
+	ti="-i"; \
+    if [[ -t 0 ]]; then ti="-ti"; fi; \
+	docker run --privileged "$$ti" --rm \
 		--init \
 		-v $(PWD):/x \
 		-w /x \
 		motiejus/toolshed \
 		scripts/create_img $@
+
+toolshed.img: toolshed-$(VSN).img.lz4
+	lz4 -k -d $< $@
 
 .PHONY: start
 start: toolshed.img
