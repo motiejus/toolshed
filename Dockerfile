@@ -29,7 +29,8 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     pgformatter software-properties-common shellcheck protobuf-compiler tzdata \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
     cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
-    syslinux pxelinux memtest86+ udev cryptsetup entr lz4 binwalk && \
+    syslinux pxelinux memtest86+ udev cryptsetup entr lz4 binwalk gdal-bin \
+    pktools && \
     \
     systemctl disable \
         NetworkManager.service \
