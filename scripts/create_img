@@ -63,13 +63,13 @@ setup_os() {
     echo '(hd0) /dev/loop0' > /target/boot/grub/device.map
     sed -i '/GRUB_CMDLINE_LINUX/d' /target/etc/default/grub
     echo 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' >> /target/etc/default/grub
+    chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     /target/usr/sbin/grub-install --no-floppy \
         --root-directory=/target \
         --grub-mkdevicemap=/target/boot/grub/device.map \
         --directory /target/usr/lib/grub/i386-pc /dev/loop0
-    chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     uuid=$(blkid -o export /dev/loop0p1 | awk -F= '/^UUID=/{print $2}')
-    sed -i "s|/dev/loop0p1|UUID={uuid}|g" /target/boot/grub/grub.cfg
+    sed -i "s|/dev/loop0p1|UUID=${uuid}|g" /target/boot/grub/grub.cfg
     chroot /target update-initramfs -u
     echo "(hd0) /dev/disk/by-uuid/${uuid}" > /target/boot/grub/device.map
 
