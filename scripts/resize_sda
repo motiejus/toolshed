@@ -1,5 +1,0 @@
-#!/bin/bash
-set -ex
-
-growpart /dev/sda 1
-resize2fs /dev/sda1

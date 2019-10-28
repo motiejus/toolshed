@@ -1,0 +1,16 @@
+#!/bin/bash
+set -ex
+
+partition=$(blkid --label toolshed)
+device=$(echo "$partition" | sed -E 's/[0-9]+$//')
+
+growpart "$device" 1 || ret=$?
+
+if [[ $ret == 1 ]]; then
+    echo "Looks like partition cannot be grown, quitting"
+    exit
+elif [[ $ret != 0 ]]; then
+    exit $ret
+fi
+
+resize2fs "$partition"

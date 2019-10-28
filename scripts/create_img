@@ -74,7 +74,7 @@ setup_os() {
     echo "(hd0) /dev/disk/by-uuid/${uuid}" > /target/boot/grub/device.map
 
     cp scripts/resize2fs_once.service /target/etc/systemd/system/
-    cp scripts/resize_sda /target/usr/local/sbin/
+    cp scripts/resize_toolshed /target/usr/local/sbin/
     chroot /target systemctl enable resize2fs_once.service
 
     {
