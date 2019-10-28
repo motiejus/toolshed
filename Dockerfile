@@ -30,7 +30,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
     cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
     syslinux pxelinux memtest86+ udev cryptsetup entr lz4 binwalk gdal-bin \
-    pktools && \
+    pktools ethtool && \
     \
     systemctl disable \
         NetworkManager.service \
