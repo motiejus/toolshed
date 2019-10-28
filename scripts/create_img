@@ -33,7 +33,7 @@ post_setup() {
 }
 
 create() {
-    rm -f /toolshed.img && truncate -s15G /toolshed.img
+    rm -f /toolshed.img && truncate -s10G /toolshed.img
     parted -a optimal /toolshed.img mklabel msdos
     parted -a optimal /toolshed.img unit mib mkpart primary ext2 1 100%
     parted -a optimal /toolshed.img set 1 boot on
@@ -63,15 +63,14 @@ setup_os() {
     echo '(hd0) /dev/loop0' > /target/boot/grub/device.map
     sed -i '/GRUB_CMDLINE_LINUX/d' /target/etc/default/grub
     echo 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' >> /target/etc/default/grub
-    chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     /target/usr/sbin/grub-install --no-floppy \
         --root-directory=/target \
         --grub-mkdevicemap=/target/boot/grub/device.map \
         --directory /target/usr/lib/grub/i386-pc /dev/loop0
+    chroot /target grub-mkconfig -o /boot/grub/grub.cfg
     uuid=$(blkid -o export /dev/loop0p1 | awk -F= '/^UUID=/{print $2}')
     sed -i "s|/dev/loop0p1|UUID={uuid}|g" /target/boot/grub/grub.cfg
     chroot /target update-initramfs -u
-    # grub-install should keep working once booted from a physical media
     echo "(hd0) /dev/disk/by-uuid/${uuid}" > /target/boot/grub/device.map
 
     cp scripts/resize2fs_once.service /target/etc/systemd/system/
@@ -91,6 +90,10 @@ setup_os() {
 
     cp /target/boot/vmlinuz-* .tmp/vmlinuz
     cp /target/boot/initrd.img-* .tmp/initrd.img
+
+    mount
+    df -h /target
+
     umount /target/sys
     umount -R /target/proc # has /target/proc/sys/fs/binfmt_misc
     umount /target/dev
