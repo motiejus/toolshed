@@ -1,4 +1,4 @@
-FROM buildpack-deps:disco
+FROM ubuntu:20.04
 
 RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     \
