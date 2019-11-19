@@ -52,6 +52,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     curl -L recs.pl > /usr/local/bin/recs && chmod a+x /usr/local/bin/recs && \
     curl -o /etc/dropbear-initramfs/authorized_keys \
         https://github.com/motiejus.keys && \
+    chmod 600 /etc/dropbear-initramfs/authorized_keys && \
     \
     git clone --recursive \
         https://github.com/motiejus/dotfiles \
