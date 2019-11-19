@@ -6,7 +6,11 @@
 [motiejus/toolshed](https://hub.docker.com/r/motiejus/toolshed/) is a docker
 image with many command-line tools.
 
-# Usage
+Builds a somewhat bootable image from the container and publishes to
+[vno1.jakstys.lt/toolsehd/](https://vno1.jakstys.lt/toolshed/).
+
+
+# Container Usage
 
 Setup:
 
@@ -50,7 +54,12 @@ Browse Rust stdlib documentation:
     $ docker run -d -w /root/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/share/doc/rust/html -p 8000:8000 motiejus/toolshed python3 -m http.server
     $ open http://localhost:8000/std/index.html
 
-# Notes
+## Bootable image usage
+
+    $ wget https://vno1.jakstys.lt/toolshed/toolshed-....xz
+    $ xzcat -v toolshed-*.xz | sudo dd of=/dev/[removable drive] bs=1M
+
+## Notes
 
 * Toolshed contains a reasonable netboot environment. Network setup is an
   exercise to the reader.
