@@ -15,12 +15,10 @@ container: .tmp/container
 
 ifeq ($(TRAVIS_BRANCH),master)
 push-container: .tmp/container
-	mkdir -p .tmp
 	docker images
 	echo "$(DOCKER_PASS)" | docker login -u motiejus --password-stdin;
 	docker push motiejus/toolshed:latest
 push-image: toolshed-$(VSN).img.lz4
-	mkdir -p .tmp
 	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) secrets/key.asc > .tmp/key
 	rsync -e "ssh -i .tmp/key -o StrictHostKeyChecking=accept-new" -aP $< ci@vno1.jakstys.lt:
 else
