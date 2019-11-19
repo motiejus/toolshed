@@ -24,12 +24,10 @@ push-image: toolshed-$(VSN).img.lz4
 	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) secrets/key.asc > .tmp/key
 	rsync -e "ssh -i .tmp/key -o StrictHostKeyChecking=accept-new" -aP $< ci@vno1.jakstys.lt:
 else
-push-image:
-	echo "branch $(TRAVIS_BRANCH) detected, not pushing image"
-	touch $@
-push-container:
-	echo "branch $(TRAVIS_BRANCH) detected, not pushing container"
-	touch $@
+push-container: .tmp/container
+	@echo "branch $(TRAVIS_BRANCH) detected, not pushing container"
+push-image: toolshed-$(VSN).img.lz4
+	@echo "branch $(TRAVIS_BRANCH) detected, not pushing image"
 endif
 
 # Below is the setup for bootable image
