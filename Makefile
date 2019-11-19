@@ -20,7 +20,7 @@ push-container: .tmp/container
 	docker push motiejus/toolshed:latest
 push-image: toolshed-$(VSN).img.lz4
 	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) secrets/key.asc > .tmp/key
-	rsync -e "ssh -i .tmp/key -o StrictHostKeyChecking=accept-new" -aP $< ci@vno1.jakstys.lt:
+	rsync -e "ssh -i .tmp/key -o StrictHostKeyChecking=no" -aP $< ci@vno1.jakstys.lt:
 else
 push-container: .tmp/container
 	@echo "branch $(TRAVIS_BRANCH) detected, not pushing container"
