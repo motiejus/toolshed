@@ -17,7 +17,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     pastebinit clang clang-6.0-doc iputils-ping debhelper pigz supervisor flex \
     rubber golang ipython autotools-dev nftables debian-archive-keyring screen \
     gdb-doc netcat-openbsd sloccount stl-manual dh-systemd python-dev pbuilder \
-    bsdgames gdb ddd ddd-doc rkt ghc-doc ghc cabal-install redir zsh nginx-doc \
+    bsdgames gdb ddd ddd-doc rkt ghc-doc ghc cabal-install zsh nginx-doc \
     libsystemd-dev psmisc pypy-dev info ipython3 youtube-dl python3-matplotlib \
     cowsay gcc-doc doc-rfc parted python-pip gdebi aptitude mysql-client mdadm \
     musl-tools units qpdf sqlite xmlto grub2 python3-yaml pgcli lynx iodine bc \
@@ -30,7 +30,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
     cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
     syslinux pxelinux udev cryptsetup entr lz4 binwalk gdal-bin ethtool hdparm \
-    pktools hdparm memtest86+ sdparm ntp ntpdate geotiff-bin neovim && \
+    pktools memtest86+ sdparm ntp ntpdate geotiff-bin neovim && \
     \
     systemctl disable \
         NetworkManager.service \
