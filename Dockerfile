@@ -9,8 +9,8 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
     fakeroot python3-all python-doc python3-doc postgresql-client nginx-extras \
-    build-essential cloc awscli bash-completion erlang erlang-doc lshw         \
-    erlang-manpages python-virtualenvv dnsutils telnet xinetd graphicsmagick   \
+    build-essential cloc awscli bash-completion lshw                           \
+    erlang-base python-virtualenv dnsutils telnet xinetd graphicsmagick        \
     mc iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind   \
     lvm2 ruby-dev python-pygments binutils-doc pypy nodejs sox libsox-fmt-all  \
     lua5.2 lua5.2-doc python3-sphinx python3-flake8 pastebinit clang           \
