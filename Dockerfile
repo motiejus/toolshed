@@ -8,7 +8,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
-    fakeroot python3-all python3-doc postgresql-client nginx-extras \
+    fakeroot python3-all python3-doc postgresql-client nginx-extras            \
     build-essential cloc awscli bash-completion lshw python-virtualenv xinetd  \
     erlang-base dnsutils telnet graphicsmagick                                 \
     mc iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind   \
