@@ -1,4 +1,4 @@
-FROM buildpack-deps:disco
+FROM buildpack-deps:focal
 
 RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     \
