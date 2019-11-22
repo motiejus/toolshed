@@ -29,7 +29,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
     cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
     syslinux pxelinux udev cryptsetup entr lz4 binwalk gdal-bin ethtool hdparm \
-    pktools memtest86+ sdparm ntp ntpdate geotiff-bin neovim                && \
+    pktools memtest86+ sdparm ntp ntpdate geotiff-bin neovim wireguard      && \
     \
     systemctl disable \
         NetworkManager.service \
