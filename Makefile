@@ -1,3 +1,4 @@
+SHELL  = /bin/bash
 LABELS = $(addprefix --label org.label-schema.,\
 		 build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		 vcs-url=https://github.com/motiejus/toolshed \
