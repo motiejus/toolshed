@@ -53,7 +53,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
         https://github.com/motiejus.keys && \
     chmod 600 /etc/dropbear-initramfs/authorized_keys && \
     \
-    git clone --recursive \
+    git clone \
         https://github.com/motiejus/dotfiles \
         /root/.dotfiles && \
     stow -d /root/.dotfiles ctags tmux vim && \
