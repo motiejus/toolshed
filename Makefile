@@ -3,9 +3,9 @@ LABELS = $(addprefix --label org.label-schema.,\
 		 vcs-url=https://github.com/motiejus/toolshed \
 		 vcs-ref=$(shell git rev-parse --short HEAD) \
 		 schema-version=1.0)
-VSN = $(shell date +%Y%m%d)_$(shell git rev-parse --short HEAD)
-SSH = ssh -i .tmp/key -o StrictHostKeyChecking=accept-new
-LZ4 = toolshed-$(VSN).img.lz4
+VSN    = $(shell date +%Y%m%d)_$(shell git rev-parse --short HEAD)
+SSH    = ssh -i .tmp/key -o StrictHostKeyChecking=accept-new
+LZ4    = toolshed-$(VSN).img.lz4
 
 .PHONY: container push-container push-image
 container: .tmp/container
