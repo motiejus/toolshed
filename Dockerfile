@@ -10,7 +10,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
     fakeroot python3-all python3-doc postgresql-client nginx-extras            \
     build-essential cloc awscli bash-completion lshw python-virtualenv xinetd  \
-    erlang-base dnsutils telnet graphicsmagick                                 \
+    dos2unix postgis pgformattererlang-base dnsutils telnet graphicsmagick     \
     mc iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind   \
     lvm2 ruby-dev python3-pygments binutils-doc pypy nodejs sox libsox-fmt-all \
     lua5.2 lua5.2-doc python3-sphinx python3-flake8 pastebinit clang           \
@@ -24,7 +24,6 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     unzip mtr python3-pandas python3-scipy jupyter pax biber stow upx-ucl      \
     python-pandas-doc cython3 cowbuilder wait-for-it ctags gpgv2 moreutils     \
     pdftk-java libsox-dev unrar less openvpn latexmk texlive-lang-european     \
-    dos2unix postgis postgresql-11-pgrouting pgformatter                       \
     software-properties-common shellcheck protobuf-compiler tzdata             \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
     cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
