@@ -10,7 +10,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
     fakeroot python3-all python3-doc postgresql-client nginx-extras            \
     build-essential cloc awscli bash-completion lshw python-virtualenv xinetd  \
-    dos2unix postgis pgformattererlang-base dnsutils telnet graphicsmagick     \
+    dos2unix postgis pgformatter erlang-base dnsutils telnet graphicsmagick    \
     mc iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind   \
     lvm2 ruby-dev python3-pygments binutils-doc pypy nodejs sox libsox-fmt-all \
     lua5.2 lua5.2-doc python3-sphinx python3-flake8 pastebinit clang           \
