@@ -16,6 +16,7 @@ container: .tmp/container
 	touch $@
 
 .tmp/key: secrets/key.asc
+	mkdir -p .tmp
 	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) $< > $@
 
 ifeq ($(TRAVIS_BRANCH),master)
