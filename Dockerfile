@@ -8,9 +8,10 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     lsof parallel debootstrap tmux apt-file nmap busybox mlocate iproute2 tree \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
-    fakeroot python3-all python3-doc postgresql-client nginx-extras            \
+    fakeroot python3-all python3-doc nginx-extras                              \
     build-essential cloc awscli bash-completion lshw python-virtualenv xinetd  \
-    dos2unix postgis pgformatter erlang-base dnsutils telnet graphicsmagick    \
+    postgis postgis-doc postgresql-12-pgrouting postgresql-12-pgrouting-doc    \
+    dos2unix pgformatter erlang-base dnsutils telnet graphicsmagick            \
     mc iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind   \
     lvm2 ruby-dev python3-pygments binutils-doc pypy nodejs sox libsox-fmt-all \
     lua5.2 lua5.2-doc python3-sphinx python3-flake8 pastebinit clang           \
@@ -26,7 +27,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     pdftk-java libsox-dev unrar less openvpn latexmk texlive-lang-european     \
     software-properties-common shellcheck protobuf-compiler tzdata             \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
-    cdebootstrap postgis-doc cdebootstrap-static docker.io linux-image-generic \
+    cdebootstrap  cdebootstrap-static docker.io linux-image-generic            \
     syslinux pxelinux udev cryptsetup entr lz4 binwalk gdal-bin ethtool hdparm \
     pktools memtest86+ sdparm ntp ntpdate geotiff-bin neovim wireguard      && \
     \
