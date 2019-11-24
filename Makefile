@@ -1,9 +1,11 @@
-VSN = $(shell date +%Y%m%d)_$(shell git rev-parse --short HEAD)
 LABELS = $(addprefix --label org.label-schema.,\
 		 build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		 vcs-url=https://github.com/motiejus/toolshed \
 		 vcs-ref=$(shell git rev-parse --short HEAD) \
 		 schema-version=1.0)
+VSN = $(shell date +%Y%m%d)_$(shell git rev-parse --short HEAD)
+SSH = ssh -i .tmp/key -o StrictHostKeyChecking=accept-new
+LZ4 = toolshed-$(VSN).img.lz4
 
 .PHONY: container push-container push-image
 container: .tmp/container
@@ -13,23 +15,25 @@ container: .tmp/container
 	docker build -t motiejus/toolshed $(LABELS) .
 	touch $@
 
+.tmp/key: secrets/key.asc
+	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) $< > $@
+
 ifeq ($(TRAVIS_BRANCH),master)
 push-container: .tmp/container
 	docker images
 	echo "$(DOCKER_PASS)" | docker login -u motiejus --password-stdin;
 	docker push motiejus/toolshed:latest
-push-image: toolshed-$(VSN).img.lz4
-	umask 077 && gpg -q -d --batch --passphrase=$(PASSPHRASE) secrets/key.asc > .tmp/key
-	rsync -e "ssh -i .tmp/key -o StrictHostKeyChecking=no" -aP $< ci@vno1.jakstys.lt:
+push-image: ARGS=--to-pipe $(SSH) ci@vno1.jakstys.lt $(LZ4)
+push-image: .tmp/key $(LZ4)
 else
 push-container: .tmp/container
 	@echo "branch $(TRAVIS_BRANCH) detected, not pushing container"
-push-image: toolshed-$(VSN).img.lz4
+push-image: $(LZ4)
 	@echo "branch $(TRAVIS_BRANCH) detected, not pushing image"
 endif
 
 # Below is the setup for bootable image
-toolshed-$(VSN).img.lz4: .tmp/container
+$(LZ4): .tmp/container
 	mkdir -p .tmp
 	ti="-i"; \
     if [[ -t 0 ]]; then ti="-ti"; fi; \
@@ -38,10 +42,10 @@ toolshed-$(VSN).img.lz4: .tmp/container
 		-v $(PWD):/x \
 		-w /x \
 		motiejus/toolshed \
-		scripts/create_img $@
+		scripts/create_img $(ARGS)
 
-toolshed.img: toolshed-$(VSN).img.lz4
-	lz4 -k -d $< $@
+toolshed.img: $(LZ4)
+	lz4 -d $< $@
 
 .PHONY: start
 start: toolshed.img
@@ -57,7 +61,7 @@ start: toolshed.img
 		-hda "toolshed.img"
 
 .PHONY: start_initrd
-start_initrd: toolshed-$(VSN).img.lz4
+start_initrd: $(LZ4)
 	qemu-system-x86_64 \
 		-m 512 \
 		-nographic \

@@ -1,8 +1,6 @@
 #!/bin/bash
 set -xeuo pipefail
 
-dest=$1
-
 main() {
     create
     bootstrap
@@ -10,7 +8,12 @@ main() {
     cleanup
 
     ls -lh /toolshed.img
-    pv /toolshed.img | lz4 - "$dest"
+    if [[ "$1" == "--to-pipe" ]]; then
+        shift
+        lz4 -v /toolshed.img - | "$@"
+    else
+        lz4 -v /toolshed.img "$1"
+    fi
 }
 
 # post_setup is called when the system is fully setup
@@ -116,4 +119,4 @@ debug() {
 
 # save stderr, so "debug" shell can use it somewhat unclobbered
 exec 6<&2
-main 2>&1 | ts '[%H:%M:%S]'
+main "$@" 2>&1 | ts '[%H:%M:%S]'
