@@ -27,7 +27,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     pdftk-java libsox-dev unrar less openvpn latexmk texlive-lang-european     \
     software-properties-common shellcheck protobuf-compiler tzdata             \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
-    cdebootstrap  cdebootstrap-static docker.io linux-image-generic            \
+    cdebootstrap cdebootstrap-static docker.io linux-image-generic tcpdump     \
     syslinux pxelinux udev cryptsetup entr lz4 binwalk gdal-bin ethtool hdparm \
     pktools memtest86+ sdparm ntp ntpdate geotiff-bin neovim wireguard      && \
     \
