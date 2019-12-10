@@ -12,15 +12,15 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     build-essential cloc awscli bash-completion lshw python-virtualenv xinetd  \
     postgis postgis-doc postgresql-12-pgrouting postgresql-12-pgrouting-doc    \
     dos2unix pgformatter erlang-base dnsutils telnet graphicsmagick            \
-    mc iotop pandoc texlive manpages-dev manpages glibc-doc autossh valgrind   \
-    lvm2 ruby-dev python3-pygments binutils-doc pypy nodejs sox libsox-fmt-all \
-    lua5.2 lua5.2-doc python3-sphinx python3-flake8 pastebinit clang           \
-    clang-6.0-doc iputils-ping debhelper pigz supervisor golang ipython        \
-    autotools-dev nftables debian-archive-keyring screen gdb-doc               \
-    netcat-openbsd sloccount dh-systemd python-dev pbuilder bsdgames gdb ddd   \
-    ddd-doc rkt ghc zsh nginx-doc libsystemd-dev psmisc info ipython3          \
-    youtube-dl python3-matplotlib cowsay gcc-doc doc-rfc parted python-pip     \
-    gdebi aptitude mysql-client mdadm musl-tools units sqlite grub2            \
+    mc iotop pandoc texlive texlive-latex-extra manpages-dev manpages          \
+    glibc-doc autossh valgrind lvm2 ruby-dev python3-pygments binutils-doc     \
+    pypy nodejs sox libsox-fmt-all lua5.2 lua5.2-doc python3-sphinx            \
+    python3-flake8 pastebinit clang clang-6.0-doc iputils-ping debhelper pigz  \
+    supervisor golang ipython autotools-dev nftables debian-archive-keyring    \
+    screen gdb-doc netcat-openbsd sloccount dh-systemd python-dev pbuilder     \
+    bsdgames gdb ddd ddd-doc rkt ghc zsh nginx-doc libsystemd-dev psmisc info  \
+    ipython3 youtube-dl python3-matplotlib cowsay gcc-doc doc-rfc parted       \
+    python-pip gdebi aptitude mysql-client mdadm musl-tools units sqlite grub2 \
     python3-yaml pgcli lynx iodine bc mencoder cmake git-buildpackage zip      \
     unzip mtr python3-pandas python3-scipy jupyter pax biber stow upx-ucl      \
     python-pandas-doc cython3 cowbuilder wait-for-it ctags gpgv2 moreutils     \
