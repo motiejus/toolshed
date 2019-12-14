@@ -25,7 +25,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     unzip mtr python3-pandas python3-scipy jupyter pax biber stow upx-ucl      \
     python-pandas-doc cython3 cowbuilder wait-for-it ctags gpgv2 moreutils     \
     pdftk-java libsox-dev unrar less openvpn latexmk texlive-lang-european     \
-    software-properties-common shellcheck protobuf-compiler tzdata             \
+    software-properties-common shellcheck protobuf-compiler tzdata rtorrent    \
     spatialite-bin cloud-guest-utils qemu-system-x86 libsqlite3-mod-spatialite \
     cdebootstrap cdebootstrap-static docker.io linux-image-generic tcpdump     \
     syslinux pxelinux udev cryptsetup entr lz4 binwalk gdal-bin ethtool hdparm \
