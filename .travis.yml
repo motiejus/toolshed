@@ -6,7 +6,7 @@ addons:
       - moreutils
 
 script:
-  - bash -eo pipefail -c "make -j push-container push-image | ts '[%H:%M:%S]'"
+  - bash -eo pipefail -c "make -j push-container | ts '[%H:%M:%S]'"
 
 env:
   global:
