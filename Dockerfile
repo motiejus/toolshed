@@ -17,7 +17,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     pypy nodejs sox libsox-fmt-all lua5.2 lua5.2-doc python3-sphinx            \
     python3-flake8 pastebinit clang clang-6.0-doc iputils-ping debhelper pigz  \
     supervisor golang ipython autotools-dev nftables debian-archive-keyring    \
-    screen gdb-doc netcat-openbsd sloccount dh-systemd python-dev pbuilder     \
+    screen gdb-doc netcat-openbsd sloccount dh-systemd python3-dev pbuilder    \
     bsdgames gdb ddd ddd-doc rkt ghc zsh nginx-doc libsystemd-dev psmisc info  \
     ipython3 youtube-dl python3-matplotlib cowsay gcc-doc doc-rfc parted       \
     python-pip gdebi aptitude mysql-client mdadm musl-tools units sqlite grub2 \
