@@ -20,7 +20,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     screen gdb-doc netcat-openbsd sloccount dh-systemd python3-dev pbuilder    \
     bsdgames gdb ddd ddd-doc rkt ghc zsh nginx-doc libsystemd-dev psmisc info  \
     ipython3 youtube-dl python3-matplotlib cowsay gcc-doc doc-rfc parted       \
-    python-pip gdebi aptitude mysql-client mdadm musl-tools units sqlite grub2 \
+    gdebi aptitude mysql-client mdadm musl-tools units sqlite grub2            \
     python3-yaml pgcli lynx iodine bc mencoder cmake git-buildpackage zip      \
     unzip mtr python3-pandas python3-scipy jupyter pax biber stow upx-ucl      \
     python-pandas-doc cython3 cowbuilder wait-for-it ctags gpgv2 moreutils     \
