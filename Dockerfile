@@ -15,7 +15,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     mc iotop pandoc texlive texlive-latex-extra manpages-dev manpages          \
     glibc-doc autossh valgrind lvm2 ruby-dev python3-pygments binutils-doc     \
     pypy nodejs sox libsox-fmt-all lua5.2 lua5.2-doc python3-sphinx            \
-    python3-flake8 pastebinit clang clang-6.0-doc iputils-ping debhelper pigz  \
+    python3-flake8 pastebinit clang clang-10-doc iputils-ping debhelper pigz   \
     supervisor golang ipython autotools-dev nftables debian-archive-keyring    \
     screen gdb-doc netcat-openbsd sloccount dh-systemd python3-dev pbuilder    \
     bsdgames gdb ddd ddd-doc rkt ghc zsh nginx-doc libsystemd-dev psmisc info  \
