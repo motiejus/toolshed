@@ -9,7 +9,7 @@ RUN sed -i '/^deb/ N; s/# deb-src/deb-src/' /etc/apt/sources.list && \
     vim man-db strace sudo socat redir htop jq tsocks rsync dropbear-initramfs \
     openssh-server git pv elinks kpartx fakechroot python-all dnsmasq graphviz \
     fakeroot python3-all python3-doc nginx-extras                              \
-    build-essential cloc awscli bash-completion lshw python-virtualenv xinetd  \
+    build-essential cloc awscli bash-completion lshw xinetd                    \
     postgis postgis-doc postgresql-12-pgrouting postgresql-12-pgrouting-doc    \
     dos2unix pgformatter erlang-base dnsutils telnet graphicsmagick            \
     mc iotop pandoc texlive texlive-latex-extra manpages-dev manpages          \
